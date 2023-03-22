@@ -1,21 +1,13 @@
-import { ApolloServer } from "apollo-server-micro";
-import { typeDefs } from "./typeDefs";
+import { ApolloServer } from "@apollo/server";
+import { startServerAndCreateNextHandler } from "@as-integrations/next";
+import { makeExecutableSchema } from "@graphql-tools/schema";
 import { resolvers } from "./resolvers";
+import { typeDefs } from "./typeDefs";
+
+export const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
 });
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-const startServer = server.start();
-
-export default async function handler(req, res) {
-  await startServer;
-  await server.createHandler({ path: "/api/graphql" })(req, res);
-}
+export default startServerAndCreateNextHandler(server);
