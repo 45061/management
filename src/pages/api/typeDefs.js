@@ -1,9 +1,16 @@
-import { gql } from "apollo-server-micro";
+import { gql } from "graphql-tag";
 
-const typeDefs = gql`
+export const typeDefs = gql`
   type Query {
-    hello: String
+    getUsers: [User]!
+  }
+
+  type User {
+    _id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    numer: String!
+    typeUser: Boolean
   }
 `;
-
-module.exports = { typeDefs };
