@@ -12,6 +12,8 @@
     "@apollo/server": "^4.5.0",
     "@as-integrations/next": "^1.2.0",
     "@graphql-tools/schema": "^9.0.17",
+    "@mantine/core": "^6.0.4",
+    "@mantine/hooks": "^6.0.4",
     "eslint-config-next": "13.2.4",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",

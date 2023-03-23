@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 // import axios from "axios";
 import Link from "next/link";
-import { login } from "@/store/actions/authAction";
+// import { login } from "@/store/actions/authAction";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    dispatch(login(loginData));
+    // dispatch(login(loginData));
   };
 
   return (
@@ -34,14 +34,22 @@ export default function Login() {
       <header className={styles.login__header}>
         <div className={styles.login__brand}>
           <Image
-            src="/gestion.svg"
+            src="/ernesto3.png"
+            alt="NominaApp Logo"
+            width={150}
+            height={150}
+          />
+          <Image
+            src="/imagen1.svg"
             alt="NominaApp Logo"
             width={150}
             height={150}
           />
         </div>
-
-        <h3 className={styles.login__title}> Iniciar Sesión </h3>
+        <h3 className={styles.login__title}>
+          {" "}
+          Ini<span>c</span>i<span>ar</span> <span>Ses</span>i<span>ó</span>n{" "}
+        </h3>
       </header>
       <div className={styles.login__content}>
         {/* Email */}
