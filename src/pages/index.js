@@ -14,9 +14,9 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const dispatch = useDispatch();
 
-  const largeScreen = useMediaQuery("(min-width: 1024px)");
+  // const largeScreen = useMediaQuery("(min-width: 1024px)");
 
-  const { showingLogin } = useSelector((state) => state.modalReducer);
+  // const { showingLogin } = useSelector((state) => state.modalReducer);
   return (
     <>
       <main className={styles.main}>
@@ -93,13 +93,13 @@ export default function Home() {
 
         <div className={styles.grid}></div>
       </main>
-      <PublicModal
+      {/* <PublicModal
         opened={showingLogin}
         onClose={() => dispatch(showLogin())}
         size={largeScreen ? "35%" : "90%"}
       >
         <Login />
-      </PublicModal>
+      </PublicModal> */}
     </>
   );
 }
