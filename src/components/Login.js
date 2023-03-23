@@ -48,7 +48,7 @@ export default function Login() {
         </div>
         <h3 className={styles.login__title}>
           {" "}
-          Ini<span>c</span>i<span>ar</span> <span>Ses</span>i<span>ó</span>n{" "}
+          Ini<span>c</span>i<span>ar</span> <span>Ses</span>i<span>ó</span>n
         </h3>
       </header>
       <div className={styles.login__content}>

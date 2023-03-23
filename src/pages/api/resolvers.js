@@ -5,7 +5,7 @@ dbConnect();
 
 export const resolvers = {
   Query: {
-    getUsers: async () => {
+    getUser: async () => {
       return await User.find();
     },
   },
