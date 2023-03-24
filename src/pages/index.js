@@ -45,7 +45,7 @@ export default function Home() {
           <p>
             <span>¡Bienvenidos a nuestra página web!</span> Aquí encontrarás
             toda la información que necesitas sobre la gestión de reservas de
-            <span>Oporto 83</span>. Nuestra web se enfoca en brindar soluciones
+            <span> Oporto 83</span>. Nuestra web se enfoca en brindar soluciones
             innovadoras para nuestros clientes y en mantenernos a la vanguardia
             del mercado. Navega por nuestras secciones y descubre todo lo que
             tenemos para ofrecerte.{" "}

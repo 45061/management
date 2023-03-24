@@ -4,6 +4,9 @@ export const typeDefs = gql`
   type Query {
     getUsers: [User]!
   }
+  type Mutation {
+    login(email: String, password: String): Token
+  }
 
   type User {
     _id: ID!
@@ -11,6 +14,10 @@ export const typeDefs = gql`
     lastName: String!
     email: String!
     numer: String!
+    password: String!
     typeUser: Boolean
+  }
+  type Token {
+    token: String!
   }
 `;
