@@ -14,9 +14,9 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const dispatch = useDispatch();
 
-  // const largeScreen = useMediaQuery("(min-width: 1024px)");
+  const largeScreen = useMediaQuery("(min-width: 1024px)");
 
-  // const { showingLogin } = useSelector((state) => state.modalReducer);
+  const { showingLogin } = useSelector((state) => state.modalReducer);
   return (
     <>
       <main className={styles.main}>
@@ -45,7 +45,7 @@ export default function Home() {
           <p>
             <span>¡Bienvenidos a nuestra página web!</span> Aquí encontrarás
             toda la información que necesitas sobre la gestión de reservas de
-            <span>Oporto 83</span>. Nuestra web se enfoca en brindar soluciones
+            <span> Oporto 83</span>. Nuestra web se enfoca en brindar soluciones
             innovadoras para nuestros clientes y en mantenernos a la vanguardia
             del mercado. Navega por nuestras secciones y descubre todo lo que
             tenemos para ofrecerte.{" "}
@@ -93,13 +93,13 @@ export default function Home() {
 
         <div className={styles.grid}></div>
       </main>
-      {/* <PublicModal
+      <PublicModal
         opened={showingLogin}
         onClose={() => dispatch(showLogin())}
         size={largeScreen ? "35%" : "90%"}
       >
         <Login />
-      </PublicModal> */}
+      </PublicModal>
     </>
   );
 }
