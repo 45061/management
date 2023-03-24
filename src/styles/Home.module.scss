@@ -3,11 +3,48 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 3rem 6rem;
   min-height: 100vh;
 }
 
-.description {
+.label {
+  h2 {
+    font-family: "They call me Lazy Thinbold";
+    direction: ltr;
+    font-weight: 400;
+    font-style: normal;
+    color: #948949;
+  }
+  span {
+    color: #c6b661;
+  }
+}
+
+.description__app {
+  display: flex;
+  align-items: center;
+  padding: 10px 60px;
+  margin: 20px 0 40px 0;
+  gap: 40px;
+
+  p {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px 80px;
+    font-family: Josefin Slab;
+    text-align: justify;
+    font-size: 28px;
+    color: #c6b661;
+    font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  span {
+    color: #948949;
+    font-weight: bold;
+  }
+}
+
+.description__initial {
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
@@ -15,7 +52,13 @@
   max-width: var(--max-width);
   width: 100%;
   z-index: 2;
-  font-family: var(--font-mono);
+
+  p {
+    font-family: "Lobster";
+    font-size: 2.5rem;
+    color: #948949;
+    cursor: pointer;
+  }
 }
 
 .description a {
@@ -25,14 +68,14 @@
   gap: 0.5rem;
 }
 
-.description p {
-  position: relative;
-  margin: 0;
-  padding: 1rem;
-  background-color: rgba(var(--callout-rgb), 0.5);
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
-  border-radius: var(--border-radius);
-}
+// .description p {
+//   position: relative;
+//   margin: 0;
+//   padding: 1rem;
+//   background-color: rgba(var(--callout-rgb), 0.5);
+//   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+//   border-radius: var(--border-radius);
+// }
 
 .code {
   font-weight: 700;
@@ -97,7 +140,7 @@
 
 .center::before,
 .center::after {
-  content: '';
+  content: "";
   left: 50%;
   position: absolute;
   filter: blur(45px);
@@ -125,7 +168,7 @@
 
 .thirteen::before,
 .thirteen::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
 }

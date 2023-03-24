@@ -1,0 +1,128 @@
+.login {
+  padding: 0 35px;
+}
+
+.login__header {
+  h3 {
+    font-family: "They call me Lazy Thinbold";
+    font-size: 32px;
+    direction: ltr;
+    font-weight: 400;
+    font-style: normal;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    color: #948949;
+    margin-top: 20px;
+  }
+  span {
+    color: #c6b661;
+  }
+}
+
+.login__brand {
+  display: flex;
+  justify-content: center;
+  top: 10px;
+  left: 40%;
+  height: 140px;
+  gap: 10px;
+  img {
+    height: 100%;
+    margin: 0;
+  }
+}
+
+.login__brand__icon {
+  display: block;
+  height: 100%;
+  transform: scale(1.5, 1.5);
+}
+
+.login__brand__letter {
+  display: block;
+  height: 100%;
+}
+
+.login__title {
+  margin: 0;
+  color: #343a40;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.login__title2 {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.login__button2 {
+  display: flex;
+  justify-content: center;
+}
+
+.login__content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.login__input {
+  display: block;
+  width: 100%;
+  padding: 8px 8px;
+  border: 1px solid #948949;
+  border-radius: 0.25rem;
+}
+
+.login__input:focus {
+  outline-color: #c6b661;
+}
+
+.login__link {
+  border: none;
+  color: #9b0ad0;
+  background-color: white;
+  font-size: 0.8rem;
+}
+
+.login__footer {
+  display: flex;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+
+  button {
+    cursor: pointer;
+  }
+}
+
+.get__footer {
+  display: flex;
+  justify-content: center;
+}
+.login__footer--span {
+  grid-column: span 2;
+  margin: 0;
+}
+
+.btn_action {
+  display: flex;
+  justify-content: center;
+  flex-grow: 0.5;
+  padding: 6px 10px;
+  margin: 0px 10px;
+  border: 1px solid #c6b661;
+  border-radius: 4px;
+  color: white;
+  background-color: #948949;
+}
+
+.register__input {
+  display: block;
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cccccc;
+  border-radius: 0.25rem;
+  margin-bottom: 10px;
+}
