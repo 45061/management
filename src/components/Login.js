@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 // import axios from "axios";
 import Link from "next/link";
-// import { login } from "@/store/actions/authAction";
+import { login } from "@/store/actions/authAction";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // dispatch(login(loginData));
+    dispatch(login(loginData));
   };
 
   return (
