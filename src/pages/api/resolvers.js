@@ -2,7 +2,6 @@ import User from "@/models/user.model";
 import { dbConnect } from "@/utils/mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { serialize } from "cookie";
 
 dbConnect();
 
@@ -35,14 +34,7 @@ export const resolvers = {
         { expiresIn: "9h" }
       );
 
-      const serialized = serialize("myTokenName", token, {
-        httpOnly: true,
-        sameSite: "strict",
-        maxAge: 1000 * 60 * 60 * 9,
-        path: "/",
-      });
-      // res.setHeader("Set-Cookie", serialized);
-      return { token };
+      return { token, user };
     },
   },
 };
