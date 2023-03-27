@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/components/Login.module.scss";
 import { useMutation } from "@apollo/client";
+import Cookies from "universal-cookie";
 
 import { POST_LOGIN } from "@/graphql/user";
 
@@ -9,11 +10,13 @@ import { useDispatch } from "react-redux";
 
 // import axios from "axios";
 import Link from "next/link";
+import { showLogin } from "@/store/actions/modalActions";
 // import { login } from "@/store/actions/authAction";
 
 export default function Login() {
   const dispatch = useDispatch();
   const [login] = useMutation(POST_LOGIN);
+  const cookies = new Cookies();
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -29,7 +32,6 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // console.log("este es email", email);
 
     try {
       const { data } = await login({
@@ -38,7 +40,14 @@ export default function Login() {
           password: loginData.password,
         },
       });
-      console.log("esto es la data en el store", data);
+      if (data.login.token) {
+        cookies.set("myTokenName", data.login.token, {
+          sameSite: "strict",
+          maxAge: 1000 * 60 * 60 * 9,
+          path: "/",
+        });
+        dispatch(showLogin());
+      }
     } catch {
       console.log("hay un errror en login");
     }
