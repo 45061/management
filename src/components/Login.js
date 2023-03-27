@@ -1,15 +1,19 @@
 import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/components/Login.module.scss";
+import { useMutation } from "@apollo/client";
+
+import { POST_LOGIN } from "@/graphql/user";
 
 import { useDispatch } from "react-redux";
 
 // import axios from "axios";
 import Link from "next/link";
-import { login } from "@/store/actions/authAction";
+// import { login } from "@/store/actions/authAction";
 
 export default function Login() {
   const dispatch = useDispatch();
+  const [login] = useMutation(POST_LOGIN);
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -25,8 +29,21 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // console.log("este es email", email);
 
-    dispatch(login(loginData));
+    try {
+      const { data } = await login({
+        variables: {
+          email: loginData.email,
+          password: loginData.password,
+        },
+      });
+      console.log("esto es la data en el store", data);
+    } catch {
+      console.log("hay un errror en login");
+    }
+
+    // dispatch(login(loginData));
   };
 
   return (

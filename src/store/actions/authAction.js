@@ -2,6 +2,9 @@
 /* eslint-disable import/prefer-default-export */
 import Router from "next/router";
 import axios from "axios";
+import { gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { POST_LOGIN } from "@/graphql/user";
 
 // import { toast } from "react-toastify";
 // import { hiddeLoginNav, hiddeRegisterForm } from "./modalAction";
@@ -14,18 +17,20 @@ import { AUTH_SUCCESS, AUTH_ERROR, LOGOUT, USER_SUCCESS } from "../types";
 //   dispatch({ type: LOGOUT });
 // };
 
-export const login = (body) => async (dispatch) => {
+export const loginUser = (body) => async (dispatch) => {
+  const [login] = useMutation(POST_LOGIN);
+
   try {
-    console.log("este es el cuerpo en el store", body);
+    const { email, password } = body;
+
     // const response = await axios.post("/api/user/login", body);
-
-    if (response.status === 201) {
-      // Router.push("userProfile");
-    }
-
-    if (response.status === 403) {
-      // return toast.error(response.data.message);
-    }
+    const { data } = await login({
+      variables: {
+        email,
+        password,
+      },
+    });
+    console.log("esto es la data en el store2", data);
 
     // dispatch(hiddeLoginNav());
     // toast.success("Usuario ha realizado login con exito");
