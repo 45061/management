@@ -1,36 +1,28 @@
 /* eslint-disable consistent-return */
 /* eslint-disable import/prefer-default-export */
+import Cookies from "universal-cookie";
 import Router from "next/router";
 import axios from "axios";
-import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { POST_LOGIN } from "@/graphql/user";
 
 // import { toast } from "react-toastify";
 // import { hiddeLoginNav, hiddeRegisterForm } from "./modalAction";
 import { AUTH_SUCCESS, AUTH_ERROR, LOGOUT, USER_SUCCESS } from "../types";
+import { showLogin } from "./modalActions";
 
-// export const logout = () => async (dispatch) => {
-//   Router.push("/");
-//   const response = await axios.post("/api/user/logout");
-//   toast.success("Logout con exito");
-//   dispatch({ type: LOGOUT });
-// };
+export const logout = () => async (dispatch) => {
+  Router.push("/");
+  const cookies = new Cookies();
+  cookies.remove("myTokenName");
+  // toast.success("Logout con exito");
+  dispatch({ type: LOGOUT });
+};
 
 export const loginUser = (body) => async (dispatch) => {
-  const [login] = useMutation(POST_LOGIN);
-
   try {
-    const { email, password } = body;
-
-    // const response = await axios.post("/api/user/login", body);
-    const { data } = await login({
-      variables: {
-        email,
-        password,
-      },
-    });
-    console.log("esto es la data en el store2", data);
+    dispatch({ type: USER_SUCCESS, payload: body });
+    dispatch(showLogin());
 
     // dispatch(hiddeLoginNav());
     // toast.success("Usuario ha realizado login con exito");
@@ -53,3 +45,19 @@ export const loginUser = (body) => async (dispatch) => {
 //     dispatch({ type: AUTH_ERROR, payload: error.response });
 //   }
 // };
+
+export const getUerData = (token) => async (dispatch) => {
+  try {
+    const response = await axios.get("/api/user/signup", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    const { data } = response;
+    console.log("esto es data en store", data);
+    dispatch({ type: USER_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({ type: AUTH_ERROR, payload: error.response });
+  }
+};

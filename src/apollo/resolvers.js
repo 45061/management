@@ -36,5 +36,12 @@ export const resolvers = {
 
       return { token, user };
     },
+    async getUser(_, args) {
+      const { token } = args;
+      const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
+      const user = await User.findById(id);
+
+      if (!user) throw new Error("token error");
+    },
   },
 };

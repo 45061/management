@@ -9,6 +9,21 @@ export const POST_LOGIN = gql`
         email
         firstName
         lastName
+        typeUser
+      }
+    }
+  }
+`;
+
+export const GET_USER = gql`
+  mutation ($token: String!) {
+    getUser(token: $token) {
+      token
+      user {
+        _id
+        email
+        firstName
+        lastName
       }
     }
   }
