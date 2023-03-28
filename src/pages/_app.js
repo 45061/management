@@ -1,12 +1,20 @@
 import "@/styles/globals.css";
 import Head from "next/head";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  useMutation,
+} from "@apollo/client";
+import Cookies from "universal-cookie";
 // import { SchemaLink } from "@apollo/client/link/schema";
 
 // import { schema } from "../apollo/schema";
 
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { wrapper, store } from "../store/store";
+import { useEffect } from "react";
+import { getUerData } from "@/store/actions/authAction";
 
 // function createIsomorphLink() {
 //   return new HttpLink({
@@ -20,7 +28,16 @@ const client = new ApolloClient({
 });
 
 function App({ Component, pageProps }) {
-  // const apolloClient = useApollo(pageProps.initialApolloState);
+  const cookies = new Cookies();
+  const token = cookies.get("myTokenName");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (token) {
+      dispatch(getUerData(token));
+    }
+  }, [token, dispatch]);
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>

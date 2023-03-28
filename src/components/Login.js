@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 // import axios from "axios";
 import Link from "next/link";
 import { showLogin } from "@/store/actions/modalActions";
+import { loginUser } from "@/store/actions/authAction";
 // import { login } from "@/store/actions/authAction";
 
 export default function Login() {
@@ -46,7 +47,7 @@ export default function Login() {
           maxAge: 1000 * 60 * 60 * 9,
           path: "/",
         });
-        dispatch(showLogin());
+        dispatch(loginUser(data.login.user));
       }
     } catch {
       console.log("hay un errror en login");
