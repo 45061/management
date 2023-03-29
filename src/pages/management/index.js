@@ -31,7 +31,7 @@ export default function management() {
 
   return (
     <main className={styles.main}>
-      <div>
+      <div className={styles.title}>
         <h1>Hola Management</h1>
       </div>
       <div className={styles.tableOfWorkers}>
