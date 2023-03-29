@@ -22,6 +22,7 @@ export const typeDefs = gql`
     user: User
   }
   type Payment {
+    _id: ID
     userId: User
     concept: String
     typePayment: String
