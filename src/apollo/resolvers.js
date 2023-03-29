@@ -1,5 +1,10 @@
 import User from "@/models/user.model";
+import Payment from "@/models/payment.model";
+import Box from "@/models/box.model";
+import Room from "@/models/room.model";
+
 import { dbConnect } from "@/utils/mongoose";
+
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -9,6 +14,12 @@ export const resolvers = {
   Query: {
     getUsers: async () => {
       return await User.find();
+    },
+    getPayment: async () => {
+      return await Payment.find()
+        .populate("roomId", "roomNumer")
+        .populate("userId", "firstName lastName")
+        .populate("boxId", "nameBox");
     },
   },
   Mutation: {
