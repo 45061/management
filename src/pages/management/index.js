@@ -6,8 +6,12 @@ import { useState } from "react";
 
 import styles from "@/styles/Management.module.scss";
 import Image from "next/image";
+import InputValidator from "@/components/ImputValidator";
+import Link from "next/link";
+import NavBar from "@/components/Navbar";
 
 export default function management() {
+  const [value, setValue] = useState();
   const { data, loading, error } = useQuery(GET_PAYMENT);
 
   if (loading)
@@ -29,51 +33,74 @@ export default function management() {
       </main>
     );
 
+  const handleClick = (event) => {
+    event.preventDefault();
+    // formData.workerId = value;
+    // dispatch(filterDayWorker(formData));
+  };
   return (
     <main className={styles.main}>
-      <div className={styles.title}>
-        <h1>Hola Management</h1>
-      </div>
-      <div className={styles.tableOfWorkers}>
-        <Table striped highlightOnHover>
-          <thead>
-            <tr>
-              <th>Concepto</th>
-              <th>Dinero</th>
-              <th>Raxon del pago</th>
-              <th>Hora</th>
-              <th>Tipo de pago</th>
-              <th>Habitacion</th>
-              <th>Usuario</th>
-              <th>Caja</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.getPayment
-              ?.map((element) => {
-                return (
-                  <tr key={element._id}>
-                    <td>{element.concept}</td>
+      <NavBar />
+      <div className={styles.container}>
+        <div className={styles.dataWorkers__info}>
+          <label>
+            Día de Corte:{" "}
+            <InputValidator
+              name="firstDate"
+              value={value}
+              type="date"
+              classname={styles.register__input}
+              onChange={setValue}
+              errorMessage="Nombre no debe estar vacio"
+              required
+            />
+          </label>
+          <div className={styles.data__buttonNewWorker}>
+            <button onClick={handleClick}>Filtrar Día</button>
+          </div>
+        </div>
+        <Divider />
+        <div className={styles.tableOfWorkers}>
+          <Table striped highlightOnHover>
+            <thead>
+              <tr>
+                <th>Concepto</th>
+                <th>Dinero</th>
+                <th>Raxon del pago</th>
+                <th>Hora</th>
+                <th>Tipo de pago</th>
+                <th>Habitacion</th>
+                <th>Usuario</th>
+                <th>Caja</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.getPayment
+                ?.map((element) => {
+                  return (
+                    <tr key={element._id}>
+                      <td>{element.concept}</td>
 
-                    <td>{element.cash}</td>
+                      <td>{element.cash}</td>
 
-                    <td>{element.reasonOfPay}</td>
+                      <td>{element.reasonOfPay}</td>
 
-                    <td>{element.timeTransaction}</td>
+                      <td>{element.timeTransaction}</td>
 
-                    <td>{element.typePayment} </td>
+                      <td>{element.typePayment} </td>
 
-                    <td>{element.roomId.roomNumer}</td>
+                      <td>{element.roomId.roomNumer}</td>
 
-                    <td>{element.userId.firstName}</td>
+                      <td>{element.userId.firstName}</td>
 
-                    <td>{element.boxId.nameBox}</td>
-                  </tr>
-                );
-              })
-              .reverse()}
-          </tbody>
-        </Table>
+                      <td>{element.boxId.nameBox}</td>
+                    </tr>
+                  );
+                })
+                .reverse()}
+            </tbody>
+          </Table>
+        </div>
       </div>
     </main>
   );
