@@ -8,6 +8,7 @@ import { showLogin } from "@/store/actions/modalActions";
 import PublicModal from "@/components/PublicModal";
 import Login from "@/components/Login";
 import { logout } from "@/store/actions/authAction";
+import Link from "next/link";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -47,7 +48,12 @@ export default function Home() {
           {!isAuth ? (
             <p onClick={handleClick}>Login</p>
           ) : (
-            <p onClick={() => dispatch(logout())}>Logout</p>
+            <>
+              <Link href="/management" prefetch={false}>
+                <p>Management</p>
+              </Link>
+              <p onClick={() => dispatch(logout())}>Logout</p>
+            </>
           )}
         </div>
         <div className={styles.description__app}>
