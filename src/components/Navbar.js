@@ -30,7 +30,12 @@ export default function NavBar() {
             </Link>
           </logo>
           <div>
-            <h3>Habitaciones</h3>
+            <Link href="/management" prefetch={false}>
+              <h3>Gestión</h3>
+            </Link>
+            <Link href="/records" prefetch={false}>
+              <h3>Registro</h3>
+            </Link>
             <h3 onClick={() => dispatch(logout())}>Logout</h3>
           </div>
         </nav>

@@ -1,0 +1,69 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 6rem;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 110px;
+}
+
+.dataWorkers__info {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  gap: 70px;
+
+  label {
+    color: #948949;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    padding-top: 2px;
+    font-size: 18px;
+  }
+
+  button {
+    border: #948949 solid 1px;
+    border-radius: 10px;
+    padding: 4px 6px;
+    font-family: Josefin Slab;
+    font-weight: 600;
+    font-style: normal;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 24px;
+    direction: ltr;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+}
+
+.register__input {
+  width: 100%;
+  padding: 6px 6px;
+  border: 1px solid #c6b661;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  color: #948949;
+}
+
+.data__buttonNewWorker {
+  display: flex;
+  gap: 15px;
+}
+
+.buttonNewWorker__buton1 {
+  background-color: #948949;
+  color: white;
+}
+
+.buttonNewWorker__buton2 {
+  background-color: #c6b661;
+  color: white;
+}

@@ -105,33 +105,3 @@ export default function management() {
     </main>
   );
 }
-
-// export async function getServerSideProps() {
-//   // const data = await graphql({
-//   //   schema,
-//   //   source: gql`
-//   //     query {
-//   //       getPayment {
-//   //         concept
-//   //         cash
-//   //         reasonOfPay
-//   //         timeTransaction
-//   //         typePayment
-
-//   //         roomId {
-//   //           roomNumer
-//   //         }
-//   //         userId {
-//   //           firstName
-//   //           lastName
-//   //         }
-//   //         boxId {
-//   //           nameBox
-//   //         }
-//   //       }
-//   //     }
-//   //   `,
-//   // });
-//   // console.log("esto es data del ServerSideProps", data);
-//   return { props: {} };
-// }
