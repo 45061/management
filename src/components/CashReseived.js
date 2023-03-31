@@ -14,13 +14,14 @@ import Image from "next/image";
 import { set } from "mongoose";
 // import { paymentBox } from "../../store/actions/boxAction";
 
-function CashReseived({ dataRoom, boxId }) {
+function CashReseived({ dataRoom, boxId, place }) {
   const [payment, setPayment] = useState("");
   const [room, setRoom] = useState("");
   const [paymentBy, setPaymentBy] = useState("react");
   const [bank, setBank] = useState(false);
   const [theBank, setTheBank] = useState("N/A");
   const [cash, setcash] = useState({
+    place: place,
     concept: "",
     cash: "",
     typePayment: "",
