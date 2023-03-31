@@ -61,7 +61,7 @@ export default function Login() {
       <header className={styles.login__header}>
         <div className={styles.login__brand}>
           <Image
-            src="/ernesto3.png"
+            src="/pago.png"
             alt="NominaApp Logo"
             width={150}
             height={150}

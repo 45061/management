@@ -1,4 +1,4 @@
-import { GET_PAYMENT } from "@/graphql/box";
+import { GET_ROOMS } from "@/graphql/box";
 import { useQuery } from "@apollo/client";
 
 import { Table, Select, Divider } from "@mantine/core";
@@ -18,29 +18,31 @@ import CashReseived from "@/components/CashReseived";
 
 export default function records() {
   const { showWitdraw, showAdd } = useSelector((state) => state.modalReducer);
+
+  const { data, loading, error } = useQuery(GET_ROOMS);
+
   const [value, setValue] = useState();
   const largeScreen = useMediaQuery("(min-width: 1024px)");
   const dispatch = useDispatch();
-  // const { data, loading, error } = useQuery(GET_PAYMENT);
 
-  // if (loading)
-  //   return (
-  //     <main className={styles.main}>
-  //       <div className={styles.loading}>
-  //         <h1>
-  //           Load<span>in</span>g
-  //         </h1>
-  //         <Image
-  //           src="/loading.png"
-  //           alt="Ernesto Perez Loading"
-  //           className={styles.vercelLogo}
-  //           width={300}
-  //           height={300}
-  //           priority
-  //         />
-  //       </div>
-  //     </main>
-  //   );
+  if (loading)
+    return (
+      <main className={styles.main}>
+        <div className={styles.loading}>
+          <h1>
+            Load<span>in</span>g
+          </h1>
+          <Image
+            src="/loading.png"
+            alt="Ernesto Perez Loading"
+            className={styles.vercelLogo}
+            width={300}
+            height={300}
+            priority
+          />
+        </div>
+      </main>
+    );
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -72,13 +74,15 @@ export default function records() {
         </div>
         <Divider />
       </div>
-      <PublicModal
-        opened={showAdd}
-        onClose={() => dispatch(showAddCashAction())}
-        size={largeScreen ? "35%" : "90%"}
-      >
-        <CashReseived />
-      </PublicModal>
+      {data.getRooms && (
+        <PublicModal
+          opened={showAdd}
+          onClose={() => dispatch(showAddCashAction())}
+          size={largeScreen ? "35%" : "90%"}
+        >
+          <CashReseived dataRoom={data.getRooms} />
+        </PublicModal>
+      )}
     </main>
   );
 }

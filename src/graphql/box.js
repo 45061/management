@@ -23,3 +23,12 @@ export const GET_PAYMENT = gql`
     }
   }
 `;
+
+export const GET_ROOMS = gql`
+  query {
+    getRooms {
+      _id
+      roomNumer
+    }
+  }
+`;

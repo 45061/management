@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/button-has-type */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Cash, Bed, CashBanknote } from "tabler-icons-react";
 import { Select } from "@mantine/core";
@@ -10,16 +10,21 @@ import dayjs from "dayjs";
 import InputValidator from "./ImputValidator";
 
 import styles from "../styles/components/ImageUploadForm.module.scss";
+import Image from "next/image";
+import { set } from "mongoose";
 // import { paymentBox } from "../../store/actions/boxAction";
 
 function CashReseived({ dataRoom, boxId }) {
   const [payment, setPayment] = useState("");
   const [room, setRoom] = useState("");
   const [paymentBy, setPaymentBy] = useState("react");
+  const [bank, setBank] = useState(false);
+  const [theBank, setTheBank] = useState("N/A");
   const [cash, setcash] = useState({
     concept: "",
     cash: "",
     typePayment: "",
+    bank: "N/A",
     roomId: "",
     reasonOfPay: "",
     boxId: "",
@@ -43,12 +48,44 @@ function CashReseived({ dataRoom, boxId }) {
     cash.reasonOfPay = paymentBy;
     cash.boxId = boxId;
     cash.timeTransaction = thisDay;
+    cash.bank = theBank;
     // dispatch(paymentBox(cash));
+    console.log("esto es cash", cash);
   };
+
+  useEffect(() => {
+    if (payment === "TransferenciaBanco") {
+      setBank(true);
+      console.log("es real", bank);
+    } else {
+      setBank(false);
+      console.log("es falso", bank);
+    }
+  }, [payment]);
 
   return (
     <div>
-      <div className="videoform__content">
+      <form className={styles.payment}>
+        <header className={styles.payment__header}>
+          <div className={styles.payment__brand}>
+            <Image
+              src="/imagen1.svg"
+              alt="NominaApp Logo"
+              width={150}
+              height={150}
+            />
+            <Image
+              src="/pago.png"
+              alt="NominaApp Logo"
+              width={150}
+              height={150}
+            />
+          </div>
+          <h3 className={styles.login__title}>
+            {" "}
+            Re<span>al</span>i<span>zar</span> <span>P</span>ag<span>o</span>
+          </h3>
+        </header>
         <Select
           required
           maxDropdownHeight={380}
@@ -80,7 +117,30 @@ function CashReseived({ dataRoom, boxId }) {
             },
           ]}
         />
-        {/* <Select
+        {bank ? (
+          <Select
+            required
+            maxDropdownHeight={380}
+            icon={<Cash size={14} />}
+            value={theBank}
+            onChange={setTheBank}
+            label="Banco"
+            placeholder="Que Banco"
+            data={[
+              {
+                value: "Davivienda",
+                label: "Davivienda",
+              },
+              {
+                value: "Bancolombia",
+                label: "Bancolombia",
+              },
+            ]}
+          />
+        ) : (
+          <></>
+        )}
+        <Select
           required
           maxDropdownHeight={380}
           icon={<Bed size={14} />}
@@ -88,11 +148,11 @@ function CashReseived({ dataRoom, boxId }) {
           onChange={setRoom}
           label="Habitacion del pago"
           placeholder="Habitación"
-          // data={dataRoom.map((item) => ({
-          //   value: item._id,
-          //   label: `${item.roomNumer}`,
-          // }))}
-        /> */}
+          data={dataRoom.map((item) => ({
+            value: item._id,
+            label: `${item.roomNumer}`,
+          }))}
+        />
         <Select
           required
           maxDropdownHeight={380}
@@ -136,10 +196,16 @@ function CashReseived({ dataRoom, boxId }) {
           placeholder="Dinero a Agregar"
           onChange={onChange}
         />
-      </div>
-      <div className={styles.button}>
-        <button onClick={handleSubmit}>Añadir Dinero</button>
-      </div>
+        <div className={styles.payment__footer}>
+          <button
+            className={styles.btn_action}
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Añadir Dinero
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
