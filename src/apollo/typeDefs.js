@@ -4,6 +4,7 @@ export const typeDefs = gql`
   type Query {
     getUsers: [User]!
     getPayment: [Payment]!
+    getRooms: [Room]!
   }
   type Mutation {
     login(email: String, password: String): Token
@@ -33,6 +34,7 @@ export const typeDefs = gql`
     timeTransaction: String
   }
   type Room {
+    _id: ID
     roomNumer: String
   }
   type Box {

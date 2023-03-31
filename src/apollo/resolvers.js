@@ -21,6 +21,9 @@ export const resolvers = {
         .populate("userId", "firstName lastName")
         .populate("boxId", "nameBox");
     },
+    getRooms: async () => {
+      return await Room.find();
+    },
   },
   Mutation: {
     async login(_, args) {
