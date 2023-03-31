@@ -22,6 +22,7 @@ export default function records() {
   const { data, loading, error } = useQuery(GET_ROOMS);
 
   const [value, setValue] = useState();
+  const [place, setPlace] = useState();
   const largeScreen = useMediaQuery("(min-width: 1024px)");
   const dispatch = useDispatch();
 
@@ -44,8 +45,25 @@ export default function records() {
       </main>
     );
 
-  const handleClick = (event) => {
+  const handleClickOporto = (event) => {
     event.preventDefault();
+    setPlace("Oporto");
+    dispatch(showAddCashAction());
+    // formData.workerId = value;
+    // dispatch(filterDayWorker(formData));
+  };
+
+  const handleClickSevgi = (event) => {
+    event.preventDefault();
+    setPlace("Sevgi");
+    dispatch(showAddCashAction());
+    // formData.workerId = value;
+    // dispatch(filterDayWorker(formData));
+  };
+
+  const handleClickPersonal = (event) => {
+    event.preventDefault();
+    setPlace("Personal");
     dispatch(showAddCashAction());
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
@@ -58,18 +76,18 @@ export default function records() {
         <div className={styles.dataWorkers__info}>
           <Record
             label="Oporto 83"
-            handleClick1={handleClick}
-            handleClick2={handleClick}
+            handleClick1={handleClickOporto}
+            handleClick2={handleClickOporto}
           />
           <Record
             label="Sevgi Sense Hostal"
-            handleClick1={handleClick}
-            handleClick2={handleClick}
+            handleClick1={handleClickSevgi}
+            handleClick2={handleClickSevgi}
           />
           <Record
             label="Movimientos Personales"
-            handleClick1={handleClick}
-            handleClick2={handleClick}
+            handleClick1={handleClickPersonal}
+            handleClick2={handleClickPersonal}
           />
         </div>
         <Divider />
@@ -80,7 +98,7 @@ export default function records() {
           onClose={() => dispatch(showAddCashAction())}
           size={largeScreen ? "35%" : "90%"}
         >
-          <CashReseived dataRoom={data.getRooms} />
+          <CashReseived dataRoom={data.getRooms} place={place} />
         </PublicModal>
       )}
     </main>
