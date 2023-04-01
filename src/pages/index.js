@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.scss";
 
 import { useMediaQuery } from "@mantine/hooks";
@@ -8,8 +7,8 @@ import { showLogin } from "@/store/actions/modalActions";
 
 import PublicModal from "@/components/PublicModal";
 import Login from "@/components/Login";
-
-const inter = Inter({ subsets: ["latin"] });
+import { logout } from "@/store/actions/authAction";
+import Link from "next/link";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -17,6 +16,13 @@ export default function Home() {
   const largeScreen = useMediaQuery("(min-width: 1024px)");
 
   const { showingLogin } = useSelector((state) => state.modalReducer);
+  const { isAuth } = useSelector((state) => state.authReducer);
+
+  const handleClick = () => {
+    dispatch(showLogin());
+  };
+
+  console.log("esta autenticado", isAuth);
   return (
     <>
       <main className={styles.main}>
@@ -39,7 +45,16 @@ export default function Home() {
               priority
             />
           </div>
-          <p onClick={() => dispatch(showLogin())}>Login</p>
+          {!isAuth ? (
+            <p onClick={handleClick}>Login</p>
+          ) : (
+            <>
+              <Link href="/management" prefetch={false}>
+                <p>Management</p>
+              </Link>
+              <p onClick={() => dispatch(logout())}>Logout</p>
+            </>
+          )}
         </div>
         <div className={styles.description__app}>
           <p>

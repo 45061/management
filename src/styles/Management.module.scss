@@ -1,0 +1,113 @@
+.tableOfWorkers {
+  margin: 40px;
+  th {
+    text-align: center;
+    font-weight: bold;
+  }
+  td {
+    text-align: center;
+  }
+}
+
+.main {
+  padding: 1rem 6rem;
+  min-height: 100vh;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20%;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  h1 {
+    font-family: "They call me Lazy Thinbold";
+    font-size: 62px;
+    direction: ltr;
+    font-weight: 500;
+    font-style: normal;
+    color: #948949;
+    text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.6);
+  }
+  span {
+    color: #c6b661;
+    text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.6);
+  }
+}
+.title {
+  cursor: pointer;
+  h1 {
+    font-family: "They call me Lazy Thinbold";
+    font-size: 42px;
+    direction: ltr;
+    font-weight: 400;
+    font-style: normal;
+    color: #948949;
+    text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.dataWorkers__info {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  gap: 60px;
+
+  label {
+    color: #948949;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    padding-top: 2px;
+    font-size: 18px;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    font-family: Josefin Slab;
+    font-weight: 600;
+    font-style: normal;
+    text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5);
+    color: #948949;
+    font-size: 36px;
+    direction: ltr;
+    cursor: pointer;
+  }
+}
+
+.register__input {
+  width: 100%;
+  padding: 6px 6px;
+  border: 1px solid #c6b661;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  color: #948949;
+}
+
+.data__buttonReport {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  button {
+    background-color: transparent;
+    border: none;
+    font-family: Josefin Slab;
+    font-weight: 600;
+    font-style: normal;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    color: #948949;
+    font-size: 36px;
+    direction: ltr;
+    cursor: pointer;
+  }
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 110px;
+}

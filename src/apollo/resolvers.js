@@ -1,8 +1,12 @@
 import User from "@/models/user.model";
+import Payment from "@/models/payment.model";
+import Box from "@/models/box.model";
+import Room from "@/models/room.model";
+
 import { dbConnect } from "@/utils/mongoose";
+
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { serialize } from "cookie";
 
 dbConnect();
 
@@ -10,6 +14,15 @@ export const resolvers = {
   Query: {
     getUsers: async () => {
       return await User.find();
+    },
+    getPayment: async () => {
+      return await Payment.find()
+        .populate("roomId", "roomNumer")
+        .populate("userId", "firstName lastName")
+        .populate("boxId", "nameBox");
+    },
+    getRooms: async () => {
+      return await Room.find();
     },
   },
   Mutation: {
@@ -35,14 +48,14 @@ export const resolvers = {
         { expiresIn: "9h" }
       );
 
-      const serialized = serialize("myTokenName", token, {
-        httpOnly: true,
-        sameSite: "strict",
-        maxAge: 1000 * 60 * 60 * 9,
-        path: "/",
-      });
-      // res.setHeader("Set-Cookie", serialized);
-      return { token };
+      return { token, user };
+    },
+    async getUser(_, args) {
+      const { token } = args;
+      const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
+      const user = await User.findById(id);
+
+      if (!user) throw new Error("token error");
     },
   },
 };
