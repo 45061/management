@@ -15,6 +15,10 @@ const paymentSchema = new Schema(
       type: String,
       required: true,
     },
+    bank: {
+      type: String,
+      required: true,
+    },
     reasonOfPay: {
       type: String,
       required: true,

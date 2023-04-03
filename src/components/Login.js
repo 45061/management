@@ -44,7 +44,7 @@ export default function Login() {
       if (data.login.token) {
         cookies.set("myTokenName", data.login.token, {
           sameSite: "strict",
-          maxAge: 1000 * 60 * 60 * 9,
+          maxAge: 1000 * 60 * 40,
           path: "/",
         });
         dispatch(loginUser(data.login.user));
@@ -61,7 +61,7 @@ export default function Login() {
       <header className={styles.login__header}>
         <div className={styles.login__brand}>
           <Image
-            src="/pago.png"
+            src="/ernesto3.png"
             alt="NominaApp Logo"
             width={150}
             height={150}

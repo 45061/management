@@ -32,3 +32,12 @@ export const GET_ROOMS = gql`
     }
   }
 `;
+
+export const GET_BOXS = gql`
+  query {
+    getBoxs {
+      _id
+      nameBox
+    }
+  }
+`;

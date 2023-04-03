@@ -5,6 +5,7 @@ export const typeDefs = gql`
     getUsers: [User]!
     getPayment: [Payment]!
     getRooms: [Room]!
+    getBoxs: [Box]!
   }
   type Mutation {
     login(email: String, password: String): Token
@@ -38,6 +39,7 @@ export const typeDefs = gql`
     roomNumer: String
   }
   type Box {
+    _id: ID
     nameBox: String
   }
 `;
