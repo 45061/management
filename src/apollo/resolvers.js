@@ -24,6 +24,9 @@ export const resolvers = {
     getRooms: async () => {
       return await Room.find();
     },
+    getBoxs: async () => {
+      return await Box.find();
+    },
   },
   Mutation: {
     async login(_, args) {
@@ -45,7 +48,7 @@ export const resolvers = {
           typeUser: user.typeUser,
         },
         process.env.NEXT_PUBLIC_JWT_SECRET_KEY,
-        { expiresIn: "9h" }
+        { expiresIn: "4h" }
       );
 
       return { token, user };

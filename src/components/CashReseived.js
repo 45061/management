@@ -20,6 +20,7 @@ function CashReseived({ dataRoom, boxId, place }) {
   const [paymentBy, setPaymentBy] = useState("react");
   const [bank, setBank] = useState(false);
   const [theBank, setTheBank] = useState("N/A");
+  console.log("esto es boxId", boxId);
   const [cash, setcash] = useState({
     place: place,
     concept: "",

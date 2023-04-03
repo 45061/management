@@ -1,9 +1,10 @@
-import { GET_ROOMS } from "@/graphql/box";
+import { GET_BOXS, GET_ROOMS } from "@/graphql/box";
 import { useQuery } from "@apollo/client";
 
 import { Table, Select, Divider } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
+import { Cash, Bed, CashBanknote } from "tabler-icons-react";
 
 import styles from "@/styles/Records.module.scss";
 import Image from "next/image";
@@ -19,6 +20,8 @@ import CashReseived from "@/components/CashReseived";
 export default function records() {
   const { showWitdraw, showAdd } = useSelector((state) => state.modalReducer);
 
+  const infoBoxs = useQuery(GET_BOXS);
+  const boxs = infoBoxs.data;
   const { data, loading, error } = useQuery(GET_ROOMS);
 
   const [value, setValue] = useState();
@@ -73,6 +76,23 @@ export default function records() {
     <main className={styles.main}>
       <NavBar />
       <div className={styles.container}>
+        <div className={styles.dataBoxs_info}>
+          <label>
+            Caja a utilizar
+            <Select
+              required
+              maxDropdownHeight={380}
+              icon={<CashBanknote size={14} />}
+              value={value}
+              onChange={setValue}
+              placeholder="Caja"
+              data={boxs.getBoxs.map((item) => ({
+                value: item._id,
+                label: `${item.nameBox}`,
+              }))}
+            />
+          </label>
+        </div>
         <div className={styles.dataWorkers__info}>
           <Record
             label="Oporto 83"
@@ -98,7 +118,7 @@ export default function records() {
           onClose={() => dispatch(showAddCashAction())}
           size={largeScreen ? "35%" : "90%"}
         >
-          <CashReseived dataRoom={data.getRooms} place={place} />
+          <CashReseived dataRoom={data.getRooms} place={place} boxId={value} />
         </PublicModal>
       )}
     </main>
