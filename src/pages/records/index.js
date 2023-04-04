@@ -18,13 +18,15 @@ import PublicModal from "@/components/PublicModal";
 import { showAddCashAction } from "@/store/actions/modalActions";
 import CashReseived from "@/components/CashReseived";
 import { GET_BOXS } from "@/graphql/box";
-import { GET_ROOMS } from "@/graphql/rooms";
+import { GET_ROOMS, GET_ROOMS_SEVGI } from "@/graphql/rooms";
 
 export default function records() {
   const { showAdd } = useSelector((state) => state.modalReducer);
 
   const infoBoxs = useQuery(GET_BOXS);
   const boxs = infoBoxs.data;
+  const infoRoomsSevgi = useQuery(GET_ROOMS_SEVGI);
+  const roomsSevgi = infoRoomsSevgi.data;
   const { data, loading, error } = useQuery(GET_ROOMS);
 
   const [value, setValue] = useState();
@@ -64,12 +66,7 @@ export default function records() {
   const handleClickSevgi = (event) => {
     event.preventDefault();
     setPlace("Sevgi");
-    setRoomPlace([
-      { _id: 101, roomNumer: "Familiar 101" },
-      { _id: 201, roomNumer: "Triple Privada 201" },
-      { _id: 202, roomNumer: "Triple Compartida 202" },
-      { _id: 203, roomNumer: "Doble Compartida 203" },
-    ]);
+    setRoomPlace(roomsSevgi.getRoomsSevgi);
     dispatch(showAddCashAction());
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
@@ -82,6 +79,7 @@ export default function records() {
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
   };
+  console.log("esto es de sevgi", roomsSevgi);
 
   return (
     <main className={styles.main}>

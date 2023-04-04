@@ -25,6 +25,9 @@ export const resolvers = {
     getRooms: async () => {
       return await Room.find();
     },
+    getRoomsSevgi: async () => {
+      return await RoomSevgi.find();
+    },
     getBoxs: async () => {
       return await Box.find();
     },
