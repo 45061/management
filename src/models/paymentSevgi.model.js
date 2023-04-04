@@ -45,4 +45,4 @@ const paymentSevgiSchema = new Schema(
   }
 );
 
-export default models.PaymentSevgi || model("PaymentSevgi", paymentSchema);
+export default models.PaymentSevgi || model("PaymentSevgi", paymentSevgiSchema);

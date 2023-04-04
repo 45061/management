@@ -1,15 +1,25 @@
+import Image from "next/image";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
+import Cookies from "universal-cookie";
 
 import InputValidator from "./ImputValidator";
 import styles from "../styles/components/Form.module.scss";
+import { POST_ROOM_SEVGI } from "@/graphql/rooms";
+import { showNewRoomAction } from "@/store/actions/modalActions";
 
 function NewRoom() {
+  const [newRoomSevgi] = useMutation(POST_ROOM_SEVGI);
+
   const [roomData, setRoomData] = useState({
     roomNumer: "",
     price: "",
   });
   const dispatch = useDispatch();
+
+  const cookies = new Cookies();
+  const token = cookies.get("myTokenName");
 
   const onChange = (e) => {
     setRoomData({
@@ -20,18 +30,27 @@ function NewRoom() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const data = {
-      roomNumer: roomData.roomNumer,
-      price: roomData.price,
-    };
+    try {
+      const { data } = await newRoomSevgi({
+        variables: {
+          token: token,
+          roomNumer: roomData.roomNumer,
+          price: roomData.price,
+        },
+      });
+      if (data.newRoomSevgi._id) {
+        dispatch(showNewRoomAction());
+      }
+    } catch (error) {
+      console.log("este es el error", error);
+    }
 
     // dispatch(postRoom(data));
   };
 
   return (
-    <form className={styles.image_upload_form}>
-      <header className={styles.image_upload_form__header}>
+    <form className={styles.login}>
+      <header className={styles.login__header}>
         <div className={styles.payment__brand}>
           <Image
             src="/imagen1.svg"
@@ -46,15 +65,18 @@ function NewRoom() {
             height={150}
           />
         </div>
-        <h3 className={styles.login__title}> Nueva Habitación</h3>
+        <h3 className={styles.login__title}>
+          {" "}
+          Nu<span>e</span>v<span>a Hab</span>i<span>tac</span>i<span>ón</span>
+        </h3>
       </header>
-      <div className="videoform__content">
+      <div className={styles.login__content}>
         <InputValidator
           name="roomNumer"
           id="roomNumer"
           value={roomData.title}
           type="text"
-          classname={styles.image_upload_form__input}
+          classname={styles.login__input}
           placeholder="Numero de Room"
           onChange={onChange}
           errorMessage="El titulo es obligatorio"
@@ -64,7 +86,7 @@ function NewRoom() {
           id="price"
           value={roomData.price}
           type="text"
-          classname={styles.image_upload_form__input}
+          classname={styles.login__input}
           placeholder="Precio"
           onChange={onChange}
         />
