@@ -17,3 +17,12 @@ export const GET_ROOMS = gql`
     }
   }
 `;
+
+export const GET_ROOMS_SEVGI = gql`
+  query {
+    getRoomsSevgi {
+      _id
+      roomNumer
+    }
+  }
+`;
