@@ -25,6 +25,7 @@ export default function records() {
   const { data, loading, error } = useQuery(GET_ROOMS);
 
   const [value, setValue] = useState();
+  const [roomPlace, setRoomPlace] = useState();
   const [place, setPlace] = useState();
   const largeScreen = useMediaQuery("(min-width: 1024px)");
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ export default function records() {
   const handleClickOporto = (event) => {
     event.preventDefault();
     setPlace("Oporto");
+    setRoomPlace(data.getRooms);
     dispatch(showAddCashAction());
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
@@ -59,6 +61,12 @@ export default function records() {
   const handleClickSevgi = (event) => {
     event.preventDefault();
     setPlace("Sevgi");
+    setRoomPlace([
+      { _id: 101, roomNumer: "Familiar 101" },
+      { _id: 201, roomNumer: "Triple Privada 201" },
+      { _id: 202, roomNumer: "Triple Compartida 202" },
+      { _id: 203, roomNumer: "Doble Compartida 203" },
+    ]);
     dispatch(showAddCashAction());
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
@@ -120,7 +128,7 @@ export default function records() {
           onClose={() => dispatch(showAddCashAction())}
           size={largeScreen ? "35%" : "90%"}
         >
-          <CashReseived dataRoom={data.getRooms} place={place} boxId={value} />
+          <CashReseived dataRoom={roomPlace} place={place} boxId={value} />
         </PublicModal>
       )}
     </main>

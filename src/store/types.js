@@ -7,3 +7,4 @@ export const USER_SUCCESS = "USER_SUCCESS";
 
 export const SHOW_ADD_CASH = "SHOW_ADD_CASH";
 export const SHOW_WITHDRAW_CASH = "SHOW_WITHDRAW_CASH";
+export const SHOW_NEW_ROOM = "SHOW_NEW_ROOM";

@@ -38,7 +38,13 @@ export default function management() {
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
   };
-  console.log("esto es data", loading);
+
+  const handleClick2 = (event) => {
+    event.preventDefault();
+    // formData.workerId = value;
+    // dispatch(filterDayWorker(formData));
+  };
+
   return (
     <main className={styles.main}>
       <NavBar />
@@ -58,6 +64,7 @@ export default function management() {
           </label>
           <div className={styles.data__buttonNewWorker}>
             <button onClick={handleClick}>Filtrar Día</button>
+            <button onClick={handleClick2}>Nueva Habitación</button>
           </div>
         </div>
         <Divider />

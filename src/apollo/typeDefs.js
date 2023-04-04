@@ -21,7 +21,7 @@ export const typeDefs = gql`
       boxId: ID
       cash: String
       timeTransaction: String
-    ): User
+    ): Payment
   }
 
   type User {
