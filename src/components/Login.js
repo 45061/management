@@ -79,7 +79,6 @@ export default function Login() {
         </h3>
       </header>
       <div className={styles.login__content}>
-        {/* Email */}
         <input
           name="email"
           type="email"
@@ -90,8 +89,6 @@ export default function Login() {
           errormessage="EL correo es requerido."
           required
         />
-
-        {/* Password */}
         <input
           name="password"
           type="password"

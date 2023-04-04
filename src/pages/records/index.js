@@ -1,24 +1,27 @@
-import { GET_BOXS, GET_ROOMS } from "@/graphql/box";
+import Image from "next/image";
 import { useQuery } from "@apollo/client";
+import { useMediaQuery } from "@mantine/hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { CashBanknote } from "tabler-icons-react";
 
 import { Table, Select, Divider } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
-import { useState } from "react";
-import { Cash, Bed, CashBanknote } from "tabler-icons-react";
 
 import styles from "@/styles/Records.module.scss";
-import Image from "next/image";
+
 import InputValidator from "@/components/ImputValidator";
 import Link from "next/link";
 import NavBar from "@/components/Navbar";
 import Record from "@/components/record";
 import PublicModal from "@/components/PublicModal";
+
 import { showAddCashAction } from "@/store/actions/modalActions";
-import { useDispatch, useSelector } from "react-redux";
 import CashReseived from "@/components/CashReseived";
+import { GET_BOXS } from "@/graphql/box";
+import { GET_ROOMS } from "@/graphql/rooms";
 
 export default function records() {
-  const { showWitdraw, showAdd } = useSelector((state) => state.modalReducer);
+  const { showAdd } = useSelector((state) => state.modalReducer);
 
   const infoBoxs = useQuery(GET_BOXS);
   const boxs = infoBoxs.data;

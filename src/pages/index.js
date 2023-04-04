@@ -22,7 +22,6 @@ export default function Home() {
     dispatch(showLogin());
   };
 
-  console.log("esta autenticado", isAuth);
   return (
     <>
       <main className={styles.main}>

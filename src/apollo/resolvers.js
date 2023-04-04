@@ -2,6 +2,7 @@ import User from "@/models/user.model";
 import Payment from "@/models/payment.model";
 import Box from "@/models/box.model";
 import Room from "@/models/room.model";
+import RoomSevgi from "@/models/roomSevgi.model";
 
 import { dbConnect } from "@/utils/mongoose";
 
@@ -59,6 +60,18 @@ export const resolvers = {
       const user = await User.findById(id);
 
       if (!user) throw new Error("token error");
+    },
+    async newRoomSevgi(_, args) {
+      const { roomNumer, price, token } = args;
+      const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
+      const user = await User.findById(id);
+      if (!user) throw new Error("token error");
+
+      const room = await RoomSevgi.create({
+        roomNumer,
+        price,
+      });
+      return room;
     },
     async newPayment(_, args) {
       const {

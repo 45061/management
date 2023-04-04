@@ -211,7 +211,7 @@ function CashReseived({ dataRoom, boxId, place }) {
           id="concept"
           value={cash.concept}
           type="text"
-          classname={styles.image_upload_form__input}
+          classname={styles.login__input2}
           placeholder="Concepto"
           onChange={onChange}
           errorMessage="El titulo es obligatorio "
@@ -222,7 +222,7 @@ function CashReseived({ dataRoom, boxId, place }) {
           id="cash"
           value={cash.cash}
           type="number"
-          classname={styles.image_upload_form__input}
+          classname={styles.login__input2}
           placeholder="Dinero a Agregar"
           onChange={onChange}
         />

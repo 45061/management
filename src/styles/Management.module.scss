@@ -71,7 +71,7 @@
     font-style: normal;
     text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5);
     color: #948949;
-    font-size: 36px;
+    font-size: 24px;
     direction: ltr;
     cursor: pointer;
   }
@@ -111,4 +111,10 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 110px;
+}
+
+.data__buttonNewWorker {
+  margin-left: 30px;
+  display: flex;
+  gap: 40px;
 }
