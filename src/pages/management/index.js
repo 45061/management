@@ -38,6 +38,7 @@ export default function management() {
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
   };
+  console.log("esto es data", loading);
   return (
     <main className={styles.main}>
       <NavBar />

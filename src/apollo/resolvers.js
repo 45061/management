@@ -60,5 +60,16 @@ export const resolvers = {
 
       if (!user) throw new Error("token error");
     },
+    async newPayment(_, args) {
+      console.log("llegue");
+      console.log("esto es args", args);
+      const { token } = args;
+      console.log("esto es token", token);
+      const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
+      const user = await User.findById(id);
+      console.log("esto es user en apollo", user);
+
+      return user;
+    },
   },
 };
