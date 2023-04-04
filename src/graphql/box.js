@@ -41,3 +41,34 @@ export const GET_BOXS = gql`
     }
   }
 `;
+
+export const POST_PAY = gql`
+  mutation (
+    $token: String
+    $concept: String
+    $place: String
+    $typePayment: String
+    $bank: String
+    $reasonOfPay: String
+    $roomId: ID
+    $boxId: ID
+    $cash: String
+    $timeTransaction: String
+  ) {
+    newPayment(
+      token: $token
+      concept: $concept
+      place: $place
+      typePayment: $typePayment
+      bank: $bank
+      reasonOfPay: $reasonOfPay
+      roomId: $roomId
+      boxId: $boxId
+      cash: $cash
+      timeTransaction: $timeTransaction
+    ) {
+      firstName
+      lastName
+    }
+  }
+`;

@@ -10,6 +10,18 @@ export const typeDefs = gql`
   type Mutation {
     login(email: String, password: String): Token
     getUser(token: String!): Token
+    newPayment(
+      token: String
+      concept: String
+      place: String
+      typePayment: String
+      bank: String
+      reasonOfPay: String
+      roomId: ID
+      boxId: ID
+      cash: String
+      timeTransaction: String
+    ): User
   }
 
   type User {
@@ -27,11 +39,13 @@ export const typeDefs = gql`
     _id: ID
     userId: User
     concept: String
+    place: String
     typePayment: String
+    bank: String
     reasonOfPay: String
     roomId: Room
     boxId: Box
-    cash: Float
+    cash: String
     timeTransaction: String
   }
   type Room {

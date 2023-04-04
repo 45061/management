@@ -79,18 +79,20 @@ export default function records() {
         <div className={styles.dataBoxs_info}>
           <label>
             Caja a utilizar
-            <Select
-              required
-              maxDropdownHeight={380}
-              icon={<CashBanknote size={14} />}
-              value={value}
-              onChange={setValue}
-              placeholder="Caja"
-              data={boxs.getBoxs.map((item) => ({
-                value: item._id,
-                label: `${item.nameBox}`,
-              }))}
-            />
+            {boxs.getBoxs && (
+              <Select
+                required
+                maxDropdownHeight={380}
+                icon={<CashBanknote size={14} />}
+                value={value}
+                onChange={setValue}
+                placeholder="Caja"
+                data={boxs.getBoxs.map((item) => ({
+                  value: item._id,
+                  label: `${item.nameBox}`,
+                }))}
+              />
+            )}
           </label>
         </div>
         <div className={styles.dataWorkers__info}>

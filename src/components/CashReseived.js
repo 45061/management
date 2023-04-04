@@ -6,12 +6,14 @@ import { useDispatch } from "react-redux";
 import { Cash, Bed, CashBanknote } from "tabler-icons-react";
 import { Select } from "@mantine/core";
 import dayjs from "dayjs";
+import Cookies from "universal-cookie";
 
 import InputValidator from "./ImputValidator";
 
 import styles from "../styles/components/ImageUploadForm.module.scss";
 import Image from "next/image";
-import { set } from "mongoose";
+import { POST_PAY } from "@/graphql/box";
+import { useMutation } from "@apollo/client";
 // import { paymentBox } from "../../store/actions/boxAction";
 
 function CashReseived({ dataRoom, boxId, place }) {
@@ -20,7 +22,12 @@ function CashReseived({ dataRoom, boxId, place }) {
   const [paymentBy, setPaymentBy] = useState("react");
   const [bank, setBank] = useState(false);
   const [theBank, setTheBank] = useState("N/A");
-  console.log("esto es boxId", boxId);
+
+  const [newPayment] = useMutation(POST_PAY);
+
+  const cookies = new Cookies();
+  const token = cookies.get("myTokenName");
+
   const [cash, setcash] = useState({
     place: place,
     concept: "",
@@ -30,6 +37,7 @@ function CashReseived({ dataRoom, boxId, place }) {
     roomId: "",
     reasonOfPay: "",
     boxId: "",
+    timeTransaction: "",
   });
 
   const thisDay = dayjs().$d.toString().substr(0, 24);
@@ -45,14 +53,28 @@ function CashReseived({ dataRoom, boxId, place }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    cash.typePayment = payment;
-    cash.roomId = room;
-    cash.reasonOfPay = paymentBy;
-    cash.boxId = boxId;
-    cash.timeTransaction = thisDay;
     cash.bank = theBank;
+    try {
+      const { data } = await newPayment({
+        variables: {
+          token: token,
+          concept: cash.concept,
+          place: place,
+          typePayment: payment,
+          bank: cash.bank,
+          reasonOfPay: paymentBy,
+          roomId: room,
+          boxId: boxId,
+          cash: cash.cash,
+          timeTransaction: thisDay,
+        },
+      });
+      console.log("esto es data en el submit", data);
+    } catch (error) {
+      console.log("este es el error", error);
+    }
+
     // dispatch(paymentBox(cash));
-    console.log("esto es cash", cash);
   };
 
   useEffect(() => {
