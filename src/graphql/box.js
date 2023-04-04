@@ -67,8 +67,20 @@ export const POST_PAY = gql`
       cash: $cash
       timeTransaction: $timeTransaction
     ) {
-      firstName
-      lastName
+      _id
+      bank
+      boxId {
+        nameBox
+      }
+      cash
+      concept
+      place
+      reasonOfPay
+      roomId {
+        roomNumer
+      }
+      timeTransaction
+      typePayment
     }
   }
 `;

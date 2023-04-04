@@ -1,6 +1,6 @@
 const { Schema, model, models } = require("mongoose");
 
-const paymentSchema = new Schema(
+const paymentSevgiSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -28,8 +28,7 @@ const paymentSchema = new Schema(
       required: true,
     },
     roomId: {
-      type: Schema.Types.ObjectId,
-      ref: "Room",
+      type: String,
       required: true,
     },
     boxId: {
@@ -46,4 +45,4 @@ const paymentSchema = new Schema(
   }
 );
 
-export default models.Payment || model("Payment", paymentSchema);
+export default models.PaymentSevgi || model("PaymentSevgi", paymentSchema);

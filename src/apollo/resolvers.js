@@ -61,15 +61,39 @@ export const resolvers = {
       if (!user) throw new Error("token error");
     },
     async newPayment(_, args) {
-      console.log("llegue");
-      console.log("esto es args", args);
-      const { token } = args;
-      console.log("esto es token", token);
+      const {
+        token,
+        roomId,
+        boxId,
+        reasonOfPay,
+        typePayment,
+        cash,
+        timeTransaction,
+        concept,
+        place,
+        bank,
+      } = args;
       const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
       const user = await User.findById(id);
-      console.log("esto es user en apollo", user);
+      if (!user) throw new Error("token error");
+      const room = await Room.findById(roomId);
+      if (!room) throw new Error("Room error");
+      const box = await Box.findById(boxId);
+      if (!box) throw new Error("box error");
 
-      return user;
+      const payment = await Payment.create({
+        boxId: box,
+        userId: user,
+        roomId: room,
+        reasonOfPay,
+        typePayment,
+        cash,
+        concept,
+        timeTransaction,
+        place,
+        bank,
+      });
+      return payment;
     },
   },
 };

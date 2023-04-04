@@ -10,10 +10,11 @@ import Cookies from "universal-cookie";
 
 import InputValidator from "./ImputValidator";
 
-import styles from "../styles/components/ImageUploadForm.module.scss";
+import styles from "../styles/components/Form.module.scss";
 import Image from "next/image";
-import { POST_PAY } from "@/graphql/box";
+import { GET_PAYMENT, POST_PAY } from "@/graphql/box";
 import { useMutation } from "@apollo/client";
+import { showAddCashAction } from "@/store/actions/modalActions";
 // import { paymentBox } from "../../store/actions/boxAction";
 
 function CashReseived({ dataRoom, boxId, place }) {
@@ -23,7 +24,9 @@ function CashReseived({ dataRoom, boxId, place }) {
   const [bank, setBank] = useState(false);
   const [theBank, setTheBank] = useState("N/A");
 
-  const [newPayment] = useMutation(POST_PAY);
+  const [newPayment] = useMutation(POST_PAY, {
+    refetchQueries: [{ query: GET_PAYMENT }, "GetPayments"],
+  });
 
   const cookies = new Cookies();
   const token = cookies.get("myTokenName");
@@ -70,6 +73,9 @@ function CashReseived({ dataRoom, boxId, place }) {
         },
       });
       console.log("esto es data en el submit", data);
+      if (data.newPayment._id) {
+        dispatch(showAddCashAction());
+      }
     } catch (error) {
       console.log("este es el error", error);
     }
@@ -222,6 +228,7 @@ function CashReseived({ dataRoom, boxId, place }) {
         />
         <div className={styles.payment__footer}>
           <button
+            disabled={!boxId}
             className={styles.btn_action}
             type="submit"
             onClick={handleSubmit}
