@@ -75,3 +75,47 @@ export const POST_PAY = gql`
     }
   }
 `;
+
+export const POST_WHITDRAW = gql`
+  mutation (
+    $token: String
+    $boxId: ID
+    $concept: String
+    $place: String
+    $typeWithdraw: String
+    $bank: String
+    $reasonOfWithdraw: String
+    $cash: String
+    $who: String
+    $timeTransaction: String
+  ) {
+    newWithdraw(
+      token: $token
+      boxId: $boxId
+      concept: $concept
+      place: $place
+      typeWithdraw: $typeWithdraw
+      bank: $bank
+      reasonOfWithdraw: $reasonOfWithdraw
+      cash: $cash
+      who: $who
+      timeTransaction: $timeTransaction
+    ) {
+      _id
+      bank
+      boxId {
+        nameBox
+      }
+      cash
+      concept
+      place
+      reasonOfWithdraw
+      timeTransaction
+      typeWithdraw
+      userId {
+        firstName
+      }
+      who
+    }
+  }
+`;

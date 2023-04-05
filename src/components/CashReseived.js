@@ -72,7 +72,6 @@ function CashReseived({ dataRoom, boxId, place }) {
           timeTransaction: thisDay,
         },
       });
-      console.log("esto es data en el submit", data);
       if (data.newPayment._id) {
         dispatch(showAddCashAction());
       }
@@ -118,7 +117,6 @@ function CashReseived({ dataRoom, boxId, place }) {
         </header>
         <Select
           required
-          maxDropdownHeight={380}
           icon={<Cash size={14} />}
           value={payment}
           onChange={setPayment}

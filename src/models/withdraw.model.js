@@ -7,6 +7,10 @@ const withdrawSchema = new Schema(
       ref: "User",
       required: true,
     },
+    place: {
+      type: String,
+      required: true,
+    },
     concept: {
       type: String,
       required: true,
@@ -22,6 +26,10 @@ const withdrawSchema = new Schema(
     boxId: {
       type: Schema.Types.ObjectId,
       ref: "Box",
+      required: true,
+    },
+    who: {
+      type: String,
       required: true,
     },
     cash: Number,
