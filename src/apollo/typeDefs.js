@@ -24,6 +24,18 @@ export const typeDefs = gql`
       cash: String
       timeTransaction: String
     ): Payment
+    newWithdraw(
+      token: String
+      concept: String
+      place: String
+      typeWithdraw: String
+      bank: String
+      reasonOfWithdraw: String
+      boxId: ID
+      cash: String
+      who: String
+      timeTransaction: String
+    ): Withdraw
   }
 
   type User {
@@ -48,6 +60,19 @@ export const typeDefs = gql`
     roomId: Room
     boxId: Box
     cash: String
+    timeTransaction: String
+  }
+  type Withdraw {
+    _id: ID
+    userId: User
+    concept: String
+    place: String
+    typeWithdraw: String
+    bank: String
+    reasonOfWithdraw: String
+    boxId: Box
+    cash: String
+    who: String
     timeTransaction: String
   }
   type Room {

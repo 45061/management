@@ -111,5 +111,26 @@ export const resolvers = {
       });
       return payment;
     },
+
+    async newWithdraw(_, args) {
+      const {
+        token,
+        boxId,
+        reasonOfWithdraw,
+        typeWithdraw,
+        cash,
+        timeTransaction,
+        concept,
+        place,
+        bank,
+        who,
+      } = args;
+      const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
+      const user = await User.findById(id);
+      if (!user) throw new Error("token error");
+      const box = await Box.findById(boxId);
+      if (!box) throw new Error("box error");
+      console.log("llegamos");
+    },
   },
 };

@@ -15,13 +15,17 @@ import NavBar from "@/components/Navbar";
 import Record from "@/components/record";
 import PublicModal from "@/components/PublicModal";
 
-import { showAddCashAction } from "@/store/actions/modalActions";
+import {
+  showAddCashAction,
+  showWithdrawCashAction,
+} from "@/store/actions/modalActions";
 import CashReseived from "@/components/CashReseived";
 import { GET_BOXS } from "@/graphql/box";
 import { GET_ROOMS, GET_ROOMS_SEVGI } from "@/graphql/rooms";
+import CashWithdrawed from "@/components/CashWithdrawed";
 
 export default function records() {
-  const { showAdd } = useSelector((state) => state.modalReducer);
+  const { showAdd, showWitdraw } = useSelector((state) => state.modalReducer);
 
   const infoBoxs = useQuery(GET_BOXS);
   const boxs = infoBoxs.data;
@@ -59,6 +63,14 @@ export default function records() {
     setPlace("Oporto");
     setRoomPlace(data.getRooms);
     dispatch(showAddCashAction());
+    // formData.workerId = value;
+    // dispatch(filterDayWorker(formData));
+  };
+
+  const handleClickOporto2 = (event) => {
+    event.preventDefault();
+    setPlace("Oporto");
+    dispatch(showWithdrawCashAction());
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
   };
@@ -107,7 +119,7 @@ export default function records() {
         <div className={styles.dataWorkers__info}>
           <Record
             label="Oporto 83"
-            handleClick1={handleClickOporto}
+            handleClick1={handleClickOporto2}
             handleClick2={handleClickOporto}
           />
           <Record
@@ -132,6 +144,13 @@ export default function records() {
           <CashReseived dataRoom={roomPlace} place={place} boxId={value} />
         </PublicModal>
       )}
+      <PublicModal
+        opened={showWitdraw}
+        onClose={() => dispatch(showWithdrawCashAction())}
+        size={largeScreen ? "35%" : "90%"}
+      >
+        <CashWithdrawed place={place} boxId={value} />
+      </PublicModal>
     </main>
   );
 }
