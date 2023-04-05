@@ -12,6 +12,9 @@ import InputValidator from "./ImputValidator";
 
 import styles from "../styles/components/Form.module.scss";
 import Image from "next/image";
+import { POST_WHITDRAW } from "@/graphql/box";
+import { useMutation } from "@apollo/client";
+import { showWithdrawCashAction } from "@/store/actions/modalActions";
 // import { withdrawBox } from "../../store/actions/boxAction";
 
 function CashWithdrawed({ boxId, place }) {
@@ -19,6 +22,8 @@ function CashWithdrawed({ boxId, place }) {
   const [paymentBy, setPaymentBy] = useState("react");
   const [bank, setBank] = useState(false);
   const [theBank, setTheBank] = useState("N/A");
+
+  const [newWithdraw] = useMutation(POST_WHITDRAW);
 
   const cookies = new Cookies();
   const token = cookies.get("myTokenName");
@@ -46,11 +51,29 @@ function CashWithdrawed({ boxId, place }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    cash.reasonOfWithdraw = paymentBy;
-    cash.boxId = boxId;
-    cash.timeTransaction = thisDay;
-    cash.typeWithdraw = payment;
     cash.bank = theBank;
+    try {
+      const { data } = await newWithdraw({
+        variables: {
+          token: token,
+          concept: cash.concept,
+          place: place,
+          typeWithdraw: payment,
+          bank: cash.bank,
+          reasonOfWithdraw: paymentBy,
+          boxId: boxId,
+          cash: cash.cash,
+          timeTransaction: thisDay,
+          who: cash.who,
+        },
+      });
+
+      if (data.newWithdraw._id) {
+        dispatch(showWithdrawCashAction());
+      }
+    } catch (error) {
+      console.log("este es el error", error);
+    }
     // dispatch(withdrawBox(cash));
   };
 
@@ -188,7 +211,7 @@ function CashWithdrawed({ boxId, place }) {
             name="who"
             id="cash"
             value={cash.who}
-            type="number"
+            type="text"
             classname={styles.login__input2}
             placeholder="Aquien se paga"
             onChange={onChange}
