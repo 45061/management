@@ -3,6 +3,7 @@ import Payment from "@/models/payment.model";
 import Box from "@/models/box.model";
 import Room from "@/models/room.model";
 import RoomSevgi from "@/models/roomSevgi.model";
+import Withdraw from "@/models/withdraw.model";
 
 import { dbConnect } from "@/utils/mongoose";
 
@@ -125,12 +126,26 @@ export const resolvers = {
         bank,
         who,
       } = args;
+
       const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
       const user = await User.findById(id);
       if (!user) throw new Error("token error");
       const box = await Box.findById(boxId);
       if (!box) throw new Error("box error");
-      console.log("llegamos");
+
+      const withdraw = await Withdraw.create({
+        boxId: box,
+        userId: user,
+        who,
+        reasonOfWithdraw,
+        typeWithdraw,
+        cash,
+        concept,
+        timeTransaction,
+        place,
+        bank,
+      });
+      return withdraw;
     },
   },
 };

@@ -84,6 +84,14 @@ export default function records() {
     // dispatch(filterDayWorker(formData));
   };
 
+  const handleClickSevgi2 = (event) => {
+    event.preventDefault();
+    setPlace("Sevgi");
+    dispatch(showWithdrawCashAction());
+    // formData.workerId = value;
+    // dispatch(filterDayWorker(formData));
+  };
+
   const handleClickPersonal = (event) => {
     event.preventDefault();
     setPlace("Personal");
@@ -124,7 +132,7 @@ export default function records() {
           />
           <Record
             label="Sevgi Sense Hostal"
-            handleClick1={handleClickSevgi}
+            handleClick1={handleClickSevgi2}
             handleClick2={handleClickSevgi}
           />
           <Record
