@@ -1,18 +1,30 @@
-import { GET_PAYMENT } from "@/graphql/box";
+import Image from "next/image";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "@mantine/hooks";
 import { useQuery } from "@apollo/client";
 
+import { GET_PAYMENT } from "@/graphql/box";
+
 import { Table, Select, Divider } from "@mantine/core";
-import { useState } from "react";
 
 import styles from "@/styles/Management.module.scss";
-import Image from "next/image";
+
 import InputValidator from "@/components/ImputValidator";
-import Link from "next/link";
 import NavBar from "@/components/Navbar";
+import PublicModal from "@/components/PublicModal";
+import NewRoom from "@/components/NewRoom";
+import { showNewRoomAction } from "@/store/actions/modalActions";
 
 export default function management() {
+  const { showingNewRoom } = useSelector((state) => state.modalReducer);
+
+  const dispatch = useDispatch();
+
   const [value, setValue] = useState();
   const { data, loading, error } = useQuery(GET_PAYMENT);
+
+  const largeScreen = useMediaQuery("(min-width: 1024px)");
 
   if (loading)
     return (
@@ -38,6 +50,14 @@ export default function management() {
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
   };
+
+  const handleClick2 = (event) => {
+    event.preventDefault();
+    dispatch(showNewRoomAction());
+    // formData.workerId = value;
+    // dispatch(filterDayWorker(formData));
+  };
+
   return (
     <main className={styles.main}>
       <NavBar />
@@ -57,6 +77,7 @@ export default function management() {
           </label>
           <div className={styles.data__buttonNewWorker}>
             <button onClick={handleClick}>Filtrar Día</button>
+            <button onClick={handleClick2}>Nueva Habitación</button>
           </div>
         </div>
         <Divider />
@@ -102,6 +123,13 @@ export default function management() {
           </Table>
         </div>
       </div>
+      <PublicModal
+        opened={showingNewRoom}
+        onClose={() => dispatch(showNewRoomAction())}
+        size={largeScreen ? "40%" : "90%"}
+      >
+        <NewRoom />
+      </PublicModal>
     </main>
   );
 }

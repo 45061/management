@@ -6,12 +6,15 @@ import { useDispatch } from "react-redux";
 import { Cash, Bed, CashBanknote } from "tabler-icons-react";
 import { Select } from "@mantine/core";
 import dayjs from "dayjs";
+import Cookies from "universal-cookie";
 
 import InputValidator from "./ImputValidator";
 
-import styles from "../styles/components/ImageUploadForm.module.scss";
+import styles from "../styles/components/Form.module.scss";
 import Image from "next/image";
-import { set } from "mongoose";
+import { GET_PAYMENT, POST_PAY } from "@/graphql/box";
+import { useMutation } from "@apollo/client";
+import { showAddCashAction } from "@/store/actions/modalActions";
 // import { paymentBox } from "../../store/actions/boxAction";
 
 function CashReseived({ dataRoom, boxId, place }) {
@@ -20,6 +23,14 @@ function CashReseived({ dataRoom, boxId, place }) {
   const [paymentBy, setPaymentBy] = useState("react");
   const [bank, setBank] = useState(false);
   const [theBank, setTheBank] = useState("N/A");
+
+  const [newPayment] = useMutation(POST_PAY, {
+    refetchQueries: [{ query: GET_PAYMENT }, "GetPayments"],
+  });
+
+  const cookies = new Cookies();
+  const token = cookies.get("myTokenName");
+
   const [cash, setcash] = useState({
     place: place,
     concept: "",
@@ -29,6 +40,7 @@ function CashReseived({ dataRoom, boxId, place }) {
     roomId: "",
     reasonOfPay: "",
     boxId: "",
+    timeTransaction: "",
   });
 
   const thisDay = dayjs().$d.toString().substr(0, 24);
@@ -44,14 +56,30 @@ function CashReseived({ dataRoom, boxId, place }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    cash.typePayment = payment;
-    cash.roomId = room;
-    cash.reasonOfPay = paymentBy;
-    cash.boxId = boxId;
-    cash.timeTransaction = thisDay;
     cash.bank = theBank;
+    try {
+      const { data } = await newPayment({
+        variables: {
+          token: token,
+          concept: cash.concept,
+          place: place,
+          typePayment: payment,
+          bank: cash.bank,
+          reasonOfPay: paymentBy,
+          roomId: room,
+          boxId: boxId,
+          cash: cash.cash,
+          timeTransaction: thisDay,
+        },
+      });
+      if (data.newPayment._id) {
+        dispatch(showAddCashAction());
+      }
+    } catch (error) {
+      console.log("este es el error", error);
+    }
+
     // dispatch(paymentBox(cash));
-    console.log("esto es cash", cash);
   };
 
   useEffect(() => {
@@ -89,7 +117,6 @@ function CashReseived({ dataRoom, boxId, place }) {
         </header>
         <Select
           required
-          maxDropdownHeight={380}
           icon={<Cash size={14} />}
           value={payment}
           onChange={setPayment}
@@ -182,7 +209,7 @@ function CashReseived({ dataRoom, boxId, place }) {
           id="concept"
           value={cash.concept}
           type="text"
-          classname={styles.image_upload_form__input}
+          classname={styles.login__input2}
           placeholder="Concepto"
           onChange={onChange}
           errorMessage="El titulo es obligatorio "
@@ -193,12 +220,13 @@ function CashReseived({ dataRoom, boxId, place }) {
           id="cash"
           value={cash.cash}
           type="number"
-          classname={styles.image_upload_form__input}
+          classname={styles.login__input2}
           placeholder="Dinero a Agregar"
           onChange={onChange}
         />
         <div className={styles.payment__footer}>
           <button
+            disabled={!boxId}
             className={styles.btn_action}
             type="submit"
             onClick={handleSubmit}

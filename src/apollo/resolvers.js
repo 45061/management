@@ -2,6 +2,8 @@ import User from "@/models/user.model";
 import Payment from "@/models/payment.model";
 import Box from "@/models/box.model";
 import Room from "@/models/room.model";
+import RoomSevgi from "@/models/roomSevgi.model";
+import Withdraw from "@/models/withdraw.model";
 
 import { dbConnect } from "@/utils/mongoose";
 
@@ -24,6 +26,12 @@ export const resolvers = {
     getRooms: async () => {
       return await Room.find();
     },
+    getRoomsSevgi: async () => {
+      return await RoomSevgi.find();
+    },
+    getBoxs: async () => {
+      return await Box.find();
+    },
   },
   Mutation: {
     async login(_, args) {
@@ -45,7 +53,7 @@ export const resolvers = {
           typeUser: user.typeUser,
         },
         process.env.NEXT_PUBLIC_JWT_SECRET_KEY,
-        { expiresIn: "9h" }
+        { expiresIn: "4h" }
       );
 
       return { token, user };
@@ -56,6 +64,88 @@ export const resolvers = {
       const user = await User.findById(id);
 
       if (!user) throw new Error("token error");
+    },
+    async newRoomSevgi(_, args) {
+      const { roomNumer, price, token } = args;
+      const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
+      const user = await User.findById(id);
+      if (!user) throw new Error("token error");
+
+      const room = await RoomSevgi.create({
+        roomNumer,
+        price,
+      });
+      return room;
+    },
+    async newPayment(_, args) {
+      const {
+        token,
+        roomId,
+        boxId,
+        reasonOfPay,
+        typePayment,
+        cash,
+        timeTransaction,
+        concept,
+        place,
+        bank,
+      } = args;
+      const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
+      const user = await User.findById(id);
+      if (!user) throw new Error("token error");
+      const room = await Room.findById(roomId);
+      if (!room) throw new Error("Room error");
+      const box = await Box.findById(boxId);
+      if (!box) throw new Error("box error");
+
+      const payment = await Payment.create({
+        boxId: box,
+        userId: user,
+        roomId: room,
+        reasonOfPay,
+        typePayment,
+        cash,
+        concept,
+        timeTransaction,
+        place,
+        bank,
+      });
+      return payment;
+    },
+
+    async newWithdraw(_, args) {
+      const {
+        token,
+        boxId,
+        reasonOfWithdraw,
+        typeWithdraw,
+        cash,
+        timeTransaction,
+        concept,
+        place,
+        bank,
+        who,
+      } = args;
+
+      const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
+      const user = await User.findById(id);
+      if (!user) throw new Error("token error");
+      const box = await Box.findById(boxId);
+      if (!box) throw new Error("box error");
+
+      const withdraw = await Withdraw.create({
+        boxId: box,
+        userId: user,
+        who,
+        reasonOfWithdraw,
+        typeWithdraw,
+        cash,
+        concept,
+        timeTransaction,
+        place,
+        bank,
+      });
+      return withdraw;
     },
   },
 };

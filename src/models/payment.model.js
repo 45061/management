@@ -15,6 +15,14 @@ const paymentSchema = new Schema(
       type: String,
       required: true,
     },
+    bank: {
+      type: String,
+      required: true,
+    },
+    place: {
+      type: String,
+      required: true,
+    },
     reasonOfPay: {
       type: String,
       required: true,
@@ -29,7 +37,7 @@ const paymentSchema = new Schema(
       ref: "Box",
       required: true,
     },
-    cash: Number,
+    cash: String,
     timeTransaction: String,
   },
   {

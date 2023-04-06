@@ -1,25 +1,33 @@
 const { Schema, model, models } = require("mongoose");
 
-const withdrawSchema = new Schema(
+const paymentSevgiSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    place: {
-      type: String,
-      required: true,
-    },
     concept: {
       type: String,
       required: true,
     },
-    typeWithdraw: {
+    typePayment: {
       type: String,
       required: true,
     },
-    reasonOfWithdraw: {
+    bank: {
+      type: String,
+      required: true,
+    },
+    place: {
+      type: String,
+      required: true,
+    },
+    reasonOfPay: {
+      type: String,
+      required: true,
+    },
+    roomId: {
       type: String,
       required: true,
     },
@@ -28,11 +36,7 @@ const withdrawSchema = new Schema(
       ref: "Box",
       required: true,
     },
-    who: {
-      type: String,
-      required: true,
-    },
-    cash: Number,
+    cash: String,
     timeTransaction: String,
   },
   {
@@ -41,4 +45,4 @@ const withdrawSchema = new Schema(
   }
 );
 
-export default models.Withdraw || model("Withdraw", withdrawSchema);
+export default models.PaymentSevgi || model("PaymentSevgi", paymentSevgiSchema);

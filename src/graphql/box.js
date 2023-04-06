@@ -24,11 +24,98 @@ export const GET_PAYMENT = gql`
   }
 `;
 
-export const GET_ROOMS = gql`
+export const GET_BOXS = gql`
   query {
-    getRooms {
+    getBoxs {
       _id
-      roomNumer
+      nameBox
+    }
+  }
+`;
+
+export const POST_PAY = gql`
+  mutation (
+    $token: String
+    $concept: String
+    $place: String
+    $typePayment: String
+    $bank: String
+    $reasonOfPay: String
+    $roomId: ID
+    $boxId: ID
+    $cash: String
+    $timeTransaction: String
+  ) {
+    newPayment(
+      token: $token
+      concept: $concept
+      place: $place
+      typePayment: $typePayment
+      bank: $bank
+      reasonOfPay: $reasonOfPay
+      roomId: $roomId
+      boxId: $boxId
+      cash: $cash
+      timeTransaction: $timeTransaction
+    ) {
+      _id
+      bank
+      boxId {
+        nameBox
+      }
+      cash
+      concept
+      place
+      reasonOfPay
+      roomId {
+        roomNumer
+      }
+      timeTransaction
+      typePayment
+    }
+  }
+`;
+
+export const POST_WHITDRAW = gql`
+  mutation (
+    $token: String
+    $boxId: ID
+    $concept: String
+    $place: String
+    $typeWithdraw: String
+    $bank: String
+    $reasonOfWithdraw: String
+    $cash: String
+    $who: String
+    $timeTransaction: String
+  ) {
+    newWithdraw(
+      token: $token
+      boxId: $boxId
+      concept: $concept
+      place: $place
+      typeWithdraw: $typeWithdraw
+      bank: $bank
+      reasonOfWithdraw: $reasonOfWithdraw
+      cash: $cash
+      who: $who
+      timeTransaction: $timeTransaction
+    ) {
+      _id
+      bank
+      boxId {
+        nameBox
+      }
+      cash
+      concept
+      place
+      reasonOfWithdraw
+      timeTransaction
+      typeWithdraw
+      userId {
+        firstName
+      }
+      who
     }
   }
 `;

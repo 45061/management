@@ -1,9 +1,15 @@
-import { LOGIN, SHOW_ADD_CASH, SHOW_WITHDRAW_CASH } from "../types";
+import {
+  LOGIN,
+  SHOW_ADD_CASH,
+  SHOW_WITHDRAW_CASH,
+  SHOW_NEW_ROOM,
+} from "../types";
 
 const initialState = {
   showingLogin: false,
   showAdd: false,
   showWitdraw: false,
+  showingNewRoom: false,
 };
 
 function modalReducer(state = initialState, action = null) {
@@ -22,6 +28,11 @@ function modalReducer(state = initialState, action = null) {
       return {
         ...state,
         showWitdraw: !state.showWitdraw,
+      };
+    case SHOW_NEW_ROOM:
+      return {
+        ...state,
+        showingNewRoom: !state.showingNewRoom,
       };
 
     default:
