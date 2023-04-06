@@ -17,15 +17,19 @@ import PublicModal from "@/components/PublicModal";
 
 import {
   showAddCashAction,
+  showPersonalIncome,
   showWithdrawCashAction,
 } from "@/store/actions/modalActions";
 import CashReseived from "@/components/CashReseived";
 import { GET_BOXS } from "@/graphql/box";
 import { GET_ROOMS, GET_ROOMS_SEVGI } from "@/graphql/rooms";
 import CashWithdrawed from "@/components/CashWithdrawed";
+import PersonalIncome from "@/components/PersonalIncome";
 
 export default function records() {
-  const { showAdd, showWitdraw } = useSelector((state) => state.modalReducer);
+  const { showAdd, showWitdraw, showingPersonalIncome } = useSelector(
+    (state) => state.modalReducer
+  );
 
   const infoBoxs = useQuery(GET_BOXS);
   const boxs = infoBoxs.data;
@@ -92,14 +96,21 @@ export default function records() {
     // dispatch(filterDayWorker(formData));
   };
 
-  const handleClickPersonal = (event) => {
+  const handleClickPersonal2 = (event) => {
     event.preventDefault();
     setPlace("Personal");
     dispatch(showAddCashAction());
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
   };
-  console.log("esto es de sevgi", roomsSevgi);
+
+  const handleClickPersonal = (event) => {
+    event.preventDefault();
+    setPlace("Personal");
+    dispatch(showPersonalIncome());
+    // formData.workerId = value;
+    // dispatch(filterDayWorker(formData));
+  };
 
   return (
     <main className={styles.main}>
@@ -137,7 +148,7 @@ export default function records() {
           />
           <Record
             label="Movimientos Personales"
-            handleClick1={handleClickPersonal}
+            handleClick1={handleClickPersonal2}
             handleClick2={handleClickPersonal}
           />
         </div>
@@ -158,6 +169,13 @@ export default function records() {
         size={largeScreen ? "35%" : "90%"}
       >
         <CashWithdrawed place={place} boxId={value} />
+      </PublicModal>
+      <PublicModal
+        opened={showingPersonalIncome}
+        onClose={() => dispatch(showPersonalIncome())}
+        size={largeScreen ? "35%" : "90%"}
+      >
+        <PersonalIncome place={place} boxId={value} />
       </PublicModal>
     </main>
   );
