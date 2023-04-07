@@ -58,23 +58,23 @@ function PersonalIncome({ dataRoom, boxId, place }) {
     event.preventDefault();
     cash.bank = theBank;
     try {
-      const { data } = await newPayment({
-        variables: {
-          token: token,
-          concept: cash.concept,
-          place: place,
-          typePayment: payment,
-          bank: cash.bank,
-          reasonOfPay: paymentBy,
-          roomId: room,
-          boxId: boxId,
-          cash: cash.cash,
-          timeTransaction: thisDay,
-        },
-      });
-      if (data.newPayment._id) {
-        dispatch(showAddCashAction());
-      }
+      // const { data } = await newPayment({
+      //   variables: {
+      //     token: token,
+      //     concept: cash.concept,
+      //     place: place,
+      //     typePayment: payment,
+      //     bank: cash.bank,
+      //     reasonOfPay: paymentBy,
+      //     roomId: room,
+      //     boxId: boxId,
+      //     cash: cash.cash,
+      //     timeTransaction: thisDay,
+      //   },
+      // });
+      // if (data.newPayment._id) {
+      //   dispatch(showAddCashAction());
+      // }
     } catch (error) {
       console.log("este es el error", error);
     }
@@ -121,7 +121,7 @@ function PersonalIncome({ dataRoom, boxId, place }) {
           value={payment}
           onChange={setPayment}
           label="Selecciona el metodo de pago"
-          placeholder="Metodo de pago"
+          placeholder="Metodo por el que ingreso el dinero"
           data={[
             {
               value: "Efectivo",
@@ -138,10 +138,6 @@ function PersonalIncome({ dataRoom, boxId, place }) {
             {
               value: "TransferenciaBanco",
               label: "Transferencia Banco",
-            },
-            {
-              value: "AirBnb",
-              label: "AirBnb",
             },
           ]}
         />
@@ -168,42 +164,6 @@ function PersonalIncome({ dataRoom, boxId, place }) {
         ) : (
           <></>
         )}
-        {/* <Select
-          required
-          maxDropdownHeight={380}
-          icon={<Bed size={14} />}
-          value={room}
-          onChange={setRoom}
-          label="Habitacion del pago"
-          placeholder="Habitación"
-          data={dataRoom.map((item) => ({
-            value: item._id,
-            label: `${item.roomNumer}`,
-          }))}
-        /> */}
-        <Select
-          required
-          maxDropdownHeight={380}
-          icon={<CashBanknote size={14} />}
-          value={paymentBy}
-          onChange={setPaymentBy}
-          label="Motivo del Pago"
-          placeholder="Pago por"
-          data={[
-            {
-              value: "Consumibles",
-              label: "Pago Consumibles",
-            },
-            {
-              value: "Habitacion",
-              label: "Pago Habitacion",
-            },
-            {
-              value: "Inyeccion",
-              label: "Inyeccion Efectivo Caja",
-            },
-          ]}
-        />
         <InputValidator
           name="concept"
           id="concept"

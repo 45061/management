@@ -93,7 +93,7 @@ function CashWithdrawed({ boxId, place }) {
         <header className={styles.payment__header}>
           <div className={styles.payment__brand}>
             <Image
-              src="/imagen1.svg"
+              src="/imagen1.png"
               alt="NominaApp Logo"
               width={150}
               height={150}

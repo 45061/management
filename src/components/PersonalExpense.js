@@ -53,24 +53,23 @@ function PersonalExpense({ boxId, place }) {
     event.preventDefault();
     cash.bank = theBank;
     try {
-      const { data } = await newWithdraw({
-        variables: {
-          token: token,
-          concept: cash.concept,
-          place: place,
-          typeWithdraw: payment,
-          bank: cash.bank,
-          reasonOfWithdraw: paymentBy,
-          boxId: boxId,
-          cash: cash.cash,
-          timeTransaction: thisDay,
-          who: cash.who,
-        },
-      });
-
-      if (data.newWithdraw._id) {
-        dispatch(showWithdrawCashAction());
-      }
+      //   const { data } = await newWithdraw({
+      //     variables: {
+      //       token: token,
+      //       concept: cash.concept,
+      //       place: place,
+      //       typeWithdraw: payment,
+      //       bank: cash.bank,
+      //       reasonOfWithdraw: paymentBy,
+      //       boxId: boxId,
+      //       cash: cash.cash,
+      //       timeTransaction: thisDay,
+      //       who: cash.who,
+      //     },
+      //   });
+      //   if (data.newWithdraw._id) {
+      //     dispatch(showWithdrawCashAction());
+      //   }
     } catch (error) {
       console.log("este es el error", error);
     }
@@ -93,7 +92,7 @@ function PersonalExpense({ boxId, place }) {
         <header className={styles.payment__header}>
           <div className={styles.payment__brand}>
             <Image
-              src="/imagen1.svg"
+              src="/imagen1.png"
               alt="NominaApp Logo"
               width={150}
               height={150}
@@ -112,41 +111,6 @@ function PersonalExpense({ boxId, place }) {
           </h3>
         </header>
         <div className="videoform__content">
-          <Select
-            required
-            maxDropdownHeight={380}
-            icon={<CashBanknote size={14} />}
-            value={paymentBy}
-            onChange={setPaymentBy}
-            label="Motivo del Retiro"
-            placeholder="Retiro por"
-            data={[
-              {
-                value: "Cafeteria",
-                label: "Cafeteria",
-              },
-              {
-                value: "Turnos",
-                label: "Turnos",
-              },
-              {
-                value: "Retiro",
-                label: "Retiro Caja",
-              },
-              {
-                value: "Salario",
-                label: "Salarios",
-              },
-              {
-                value: "Aseo",
-                label: "Aseo",
-              },
-              {
-                value: "Otros",
-                label: "Otros",
-              },
-            ]}
-          />
           <Select
             required
             maxDropdownHeight={380}
