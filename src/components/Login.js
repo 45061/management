@@ -67,7 +67,7 @@ export default function Login() {
             height={150}
           />
           <Image
-            src="/imagen1.svg"
+            src="/imagen1.png"
             alt="NominaApp Logo"
             width={150}
             height={150}
