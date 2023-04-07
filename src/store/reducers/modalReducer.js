@@ -4,6 +4,7 @@ import {
   SHOW_WITHDRAW_CASH,
   SHOW_NEW_ROOM,
   SHOW_PERSONAL_INCOME,
+  SHOW_PERSONAL_EXPENSE,
 } from "../types";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   showWitdraw: false,
   showingNewRoom: false,
   showingPersonalIncome: false,
+  showingPersonalExpense: false,
 };
 
 function modalReducer(state = initialState, action = null) {
@@ -40,6 +42,11 @@ function modalReducer(state = initialState, action = null) {
       return {
         ...state,
         showingPersonalIncome: !state.showingPersonalIncome,
+      };
+    case SHOW_PERSONAL_EXPENSE:
+      return {
+        ...state,
+        showingPersonalExpense: !state.showingPersonalExpense,
       };
 
     default:
