@@ -17,6 +17,7 @@ import PublicModal from "@/components/PublicModal";
 
 import {
   showAddCashAction,
+  showPersonalExpense,
   showPersonalIncome,
   showWithdrawCashAction,
 } from "@/store/actions/modalActions";
@@ -25,11 +26,15 @@ import { GET_BOXS } from "@/graphql/box";
 import { GET_ROOMS, GET_ROOMS_SEVGI } from "@/graphql/rooms";
 import CashWithdrawed from "@/components/CashWithdrawed";
 import PersonalIncome from "@/components/PersonalIncome";
+import PersonalExpense from "@/components/PersonalExpense";
 
 export default function records() {
-  const { showAdd, showWitdraw, showingPersonalIncome } = useSelector(
-    (state) => state.modalReducer
-  );
+  const {
+    showAdd,
+    showWitdraw,
+    showingPersonalIncome,
+    showingPersonalExpense,
+  } = useSelector((state) => state.modalReducer);
 
   const infoBoxs = useQuery(GET_BOXS);
   const boxs = infoBoxs.data;
@@ -99,7 +104,7 @@ export default function records() {
   const handleClickPersonal2 = (event) => {
     event.preventDefault();
     setPlace("Personal");
-    dispatch(showAddCashAction());
+    dispatch(showPersonalExpense());
     // formData.workerId = value;
     // dispatch(filterDayWorker(formData));
   };
@@ -176,6 +181,13 @@ export default function records() {
         size={largeScreen ? "35%" : "90%"}
       >
         <PersonalIncome place={place} boxId={value} />
+      </PublicModal>
+      <PublicModal
+        opened={showingPersonalExpense}
+        onClose={() => dispatch(showPersonalExpense())}
+        size={largeScreen ? "35%" : "90%"}
+      >
+        <PersonalExpense place={place} boxId={value} />
       </PublicModal>
     </main>
   );
