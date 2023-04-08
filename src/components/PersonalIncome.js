@@ -37,7 +37,6 @@ function PersonalIncome({ dataRoom, boxId, place }) {
     cash: "",
     typePayment: "",
     bank: "N/A",
-    roomId: "",
     reasonOfPay: "",
     boxId: "",
     timeTransaction: "",
