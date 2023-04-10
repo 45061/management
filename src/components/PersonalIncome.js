@@ -17,7 +17,7 @@ import { useMutation } from "@apollo/client";
 import { showAddCashAction } from "@/store/actions/modalActions";
 // import { paymentBox } from "../../store/actions/boxAction";
 
-function CashReseived({ dataRoom, boxId, place }) {
+function PersonalIncome({ dataRoom, boxId, place }) {
   const [payment, setPayment] = useState("");
   const [room, setRoom] = useState("");
   const [paymentBy, setPaymentBy] = useState("react");
@@ -37,7 +37,6 @@ function CashReseived({ dataRoom, boxId, place }) {
     cash: "",
     typePayment: "",
     bank: "N/A",
-    roomId: "",
     reasonOfPay: "",
     boxId: "",
     timeTransaction: "",
@@ -58,23 +57,23 @@ function CashReseived({ dataRoom, boxId, place }) {
     event.preventDefault();
     cash.bank = theBank;
     try {
-      const { data } = await newPayment({
-        variables: {
-          token: token,
-          concept: cash.concept,
-          place: place,
-          typePayment: payment,
-          bank: cash.bank,
-          reasonOfPay: paymentBy,
-          roomId: room,
-          boxId: boxId,
-          cash: cash.cash,
-          timeTransaction: thisDay,
-        },
-      });
-      if (data.newPayment._id) {
-        dispatch(showAddCashAction());
-      }
+      // const { data } = await newPayment({
+      //   variables: {
+      //     token: token,
+      //     concept: cash.concept,
+      //     place: place,
+      //     typePayment: payment,
+      //     bank: cash.bank,
+      //     reasonOfPay: paymentBy,
+      //     roomId: room,
+      //     boxId: boxId,
+      //     cash: cash.cash,
+      //     timeTransaction: thisDay,
+      //   },
+      // });
+      // if (data.newPayment._id) {
+      //   dispatch(showAddCashAction());
+      // }
     } catch (error) {
       console.log("este es el error", error);
     }
@@ -98,7 +97,7 @@ function CashReseived({ dataRoom, boxId, place }) {
         <header className={styles.payment__header}>
           <div className={styles.payment__brand}>
             <Image
-              src="/imagen1.png"
+              src="/imagen1.svg"
               alt="NominaApp Logo"
               width={150}
               height={150}
@@ -112,7 +111,7 @@ function CashReseived({ dataRoom, boxId, place }) {
           </div>
           <h3 className={styles.login__title}>
             {" "}
-            Re<span>al</span>i<span>zar</span> <span>P</span>ag<span>o</span>
+            Re<span>al</span>i<span>zar</span> <span>I</span>ngr<span>eso</span>
           </h3>
         </header>
         <Select
@@ -121,7 +120,7 @@ function CashReseived({ dataRoom, boxId, place }) {
           value={payment}
           onChange={setPayment}
           label="Selecciona el metodo de pago"
-          placeholder="Metodo de pago"
+          placeholder="Metodo por el que ingreso el dinero"
           data={[
             {
               value: "Efectivo",
@@ -138,10 +137,6 @@ function CashReseived({ dataRoom, boxId, place }) {
             {
               value: "TransferenciaBanco",
               label: "Transferencia Banco",
-            },
-            {
-              value: "AirBnb",
-              label: "AirBnb",
             },
           ]}
         />
@@ -168,42 +163,6 @@ function CashReseived({ dataRoom, boxId, place }) {
         ) : (
           <></>
         )}
-        <Select
-          required
-          maxDropdownHeight={380}
-          icon={<Bed size={14} />}
-          value={room}
-          onChange={setRoom}
-          label="Habitacion del pago"
-          placeholder="Habitación"
-          data={dataRoom.map((item) => ({
-            value: item._id,
-            label: `${item.roomNumer}`,
-          }))}
-        />
-        <Select
-          required
-          maxDropdownHeight={380}
-          icon={<CashBanknote size={14} />}
-          value={paymentBy}
-          onChange={setPaymentBy}
-          label="Motivo del Pago"
-          placeholder="Pago por"
-          data={[
-            {
-              value: "Consumibles",
-              label: "Pago Consumibles",
-            },
-            {
-              value: "Habitacion",
-              label: "Pago Habitacion",
-            },
-            {
-              value: "Inyeccion",
-              label: "Inyeccion Efectivo Caja",
-            },
-          ]}
-        />
         <InputValidator
           name="concept"
           id="concept"
@@ -239,4 +198,4 @@ function CashReseived({ dataRoom, boxId, place }) {
   );
 }
 
-export default CashReseived;
+export default PersonalIncome;

@@ -17,7 +17,7 @@ import { useMutation } from "@apollo/client";
 import { showWithdrawCashAction } from "@/store/actions/modalActions";
 // import { withdrawBox } from "../../store/actions/boxAction";
 
-function CashWithdrawed({ boxId, place }) {
+function PersonalExpense({ boxId, place }) {
   const [payment, setPayment] = useState("");
   const [paymentBy, setPaymentBy] = useState("react");
   const [bank, setBank] = useState(false);
@@ -53,24 +53,23 @@ function CashWithdrawed({ boxId, place }) {
     event.preventDefault();
     cash.bank = theBank;
     try {
-      const { data } = await newWithdraw({
-        variables: {
-          token: token,
-          concept: cash.concept,
-          place: place,
-          typeWithdraw: payment,
-          bank: cash.bank,
-          reasonOfWithdraw: paymentBy,
-          boxId: boxId,
-          cash: cash.cash,
-          timeTransaction: thisDay,
-          who: cash.who,
-        },
-      });
-
-      if (data.newWithdraw._id) {
-        dispatch(showWithdrawCashAction());
-      }
+      //   const { data } = await newWithdraw({
+      //     variables: {
+      //       token: token,
+      //       concept: cash.concept,
+      //       place: place,
+      //       typeWithdraw: payment,
+      //       bank: cash.bank,
+      //       reasonOfWithdraw: paymentBy,
+      //       boxId: boxId,
+      //       cash: cash.cash,
+      //       timeTransaction: thisDay,
+      //       who: cash.who,
+      //     },
+      //   });
+      //   if (data.newWithdraw._id) {
+      //     dispatch(showWithdrawCashAction());
+      //   }
     } catch (error) {
       console.log("este es el error", error);
     }
@@ -107,45 +106,11 @@ function CashWithdrawed({ boxId, place }) {
           </div>
           <h3 className={styles.login__title}>
             {" "}
-            Re<span>al</span>i<span>zar</span> Re<span>t</span>ir<span>o</span>
+            E<span>gr</span>e<span>sos</span> <span>P</span>e<span>rso</span>n
+            <span>al</span>e<span>s</span>
           </h3>
         </header>
         <div className="videoform__content">
-          <Select
-            required
-            maxDropdownHeight={380}
-            icon={<CashBanknote size={14} />}
-            value={paymentBy}
-            onChange={setPaymentBy}
-            label="Motivo del Retiro"
-            placeholder="Retiro por"
-            data={[
-              {
-                value: "Cafeteria",
-                label: "Cafeteria",
-              },
-              {
-                value: "Turnos",
-                label: "Turnos",
-              },
-              {
-                value: "Retiro",
-                label: "Retiro Caja",
-              },
-              {
-                value: "Salario",
-                label: "Salarios",
-              },
-              {
-                value: "Aseo",
-                label: "Aseo",
-              },
-              {
-                value: "Otros",
-                label: "Otros",
-              },
-            ]}
-          />
           <Select
             required
             maxDropdownHeight={380}
@@ -236,4 +201,4 @@ function CashWithdrawed({ boxId, place }) {
   );
 }
 
-export default CashWithdrawed;
+export default PersonalExpense;
