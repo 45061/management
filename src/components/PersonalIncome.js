@@ -12,7 +12,7 @@ import InputValidator from "./ImputValidator";
 
 import styles from "../styles/components/Form.module.scss";
 import Image from "next/image";
-import { GET_PAYMENT, POST_PAY } from "@/graphql/box";
+import { GET_PAYMENT, POST_PAY, POST_PERSONAL_INCOME } from "@/graphql/box";
 import { useMutation } from "@apollo/client";
 import { showAddCashAction } from "@/store/actions/modalActions";
 // import { paymentBox } from "../../store/actions/boxAction";
@@ -24,9 +24,7 @@ function PersonalIncome({ dataRoom, boxId, place }) {
   const [bank, setBank] = useState(false);
   const [theBank, setTheBank] = useState("N/A");
 
-  const [newPayment] = useMutation(POST_PAY, {
-    refetchQueries: [{ query: GET_PAYMENT }, "GetPayments"],
-  });
+  const [newPersonalIncome] = useMutation(POST_PERSONAL_INCOME);
 
   const cookies = new Cookies();
   const token = cookies.get("myTokenName");
@@ -57,7 +55,7 @@ function PersonalIncome({ dataRoom, boxId, place }) {
     event.preventDefault();
     cash.bank = theBank;
     try {
-      // const { data } = await newPayment({
+      // const { data } = await newPersonalIncome({
       //   variables: {
       //     token: token,
       //     concept: cash.concept,

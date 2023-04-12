@@ -119,3 +119,41 @@ export const POST_WHITDRAW = gql`
     }
   }
 `;
+
+export const POST_PERSONAL_INCOME = gql`
+  mutation (
+    $token: String
+    $concept: String
+    $place: String
+    $typePayment: String
+    $bank: String
+    $boxId: ID
+    $cash: String
+    $timeTransaction: String
+  ) {
+    newPersonalIncome(
+      token: $token
+      concept: $concept
+      place: $place
+      typePayment: $typePayment
+      bank: $bank
+      boxId: $boxId
+      cash: $cash
+      timeTransaction: $timeTransaction
+    ) {
+      _id
+      bank
+      boxId {
+        nameBox
+      }
+      cash
+      concept
+      place
+      timeTransaction
+      typePayment
+      userId {
+        firstName
+      }
+    }
+  }
+`;
