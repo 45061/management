@@ -36,6 +36,16 @@ export const typeDefs = gql`
       who: String
       timeTransaction: String
     ): Withdraw
+    newPersonalIncome(
+      token: String
+      concept: String
+      place: String
+      typePayment: String
+      bank: String
+      boxId: ID
+      cash: String
+      timeTransaction: String
+    ): PersonalIncome
   }
 
   type User {
@@ -86,5 +96,16 @@ export const typeDefs = gql`
   type RoomSevgi {
     _id: ID
     roomNumer: String
+  }
+  type PersonalIncome {
+    _id: ID
+    userId: User
+    concept: String
+    place: String
+    typePayment: String
+    bank: String
+    boxId: Box
+    cash: String
+    timeTransaction: String
   }
 `;

@@ -4,6 +4,7 @@ import Box from "@/models/box.model";
 import Room from "@/models/room.model";
 import RoomSevgi from "@/models/roomSevgi.model";
 import Withdraw from "@/models/withdraw.model";
+import PersonalIncome from "@/models/personalIncome.model";
 
 import { dbConnect } from "@/utils/mongoose";
 
@@ -146,6 +147,35 @@ export const resolvers = {
         bank,
       });
       return withdraw;
+    },
+    async newPersonalIncome(_, args) {
+      const {
+        token,
+        boxId,
+        typePayment,
+        cash,
+        timeTransaction,
+        concept,
+        place,
+        bank,
+      } = args;
+      const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
+      const user = await User.findById(id);
+      if (!user) throw new Error("token error");
+      const box = await Box.findById(boxId);
+      if (!box) throw new Error("box error");
+
+      const payment = await PersonalIncome.create({
+        boxId: box,
+        userId: user,
+        typePayment,
+        cash,
+        concept,
+        timeTransaction,
+        place,
+        bank,
+      });
+      return payment;
     },
   },
 };
