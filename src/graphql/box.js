@@ -157,3 +157,44 @@ export const POST_PERSONAL_INCOME = gql`
     }
   }
 `;
+
+export const POST_PERSONAL_EXPENSE = gql`
+  mutation (
+    $token: String
+    $concept: String
+    $place: String
+    $typePayment: String
+    $bank: String
+    $boxId: ID
+    $cash: String
+    $who: String
+    $timeTransaction: String
+  ) {
+    newPersonalExpense(
+      token: $token
+      concept: $concept
+      place: $place
+      typeWithdraw: $typePayment
+      bank: $bank
+      boxId: $boxId
+      cash: $cash
+      who: $who
+      timeTransaction: $timeTransaction
+    ) {
+      _id
+      bank
+      boxId {
+        nameBox
+      }
+      cash
+      concept
+      place
+      timeTransaction
+      typeWithdraw
+      userId {
+        firstName
+      }
+      who
+    }
+  }
+`;
