@@ -174,7 +174,6 @@ export const resolvers = {
         concept,
         timeTransaction,
         place,
-        who,
         bank,
       });
       return payment;
